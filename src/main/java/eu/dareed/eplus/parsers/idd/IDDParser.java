@@ -1,4 +1,7 @@
-package eu.dareed.eplus;
+package eu.dareed.eplus.parsers.idd;
+
+import eu.dareed.eplus.parsers.Parser;
+import eu.dareed.eplus.parsers.idd.tokens.IDD;
 
 import java.io.*;
 

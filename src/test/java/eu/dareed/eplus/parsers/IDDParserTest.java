@@ -1,5 +1,8 @@
-package eu.dareed.eplus;
+package eu.dareed.eplus.parsers;
 
+import eu.dareed.eplus.parsers.idd.IDDParser;
+import eu.dareed.eplus.parsers.idd.tokens.IDD;
+import eu.dareed.eplus.parsers.idd.tokens.IDDObject;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -13,7 +16,7 @@ public class IDDParserTest {
 
     @Test
     public void testOneLine() {
-        String line = "Site:Location,";
+        String line = "Site:Location,\n";
         int lineNumber = 1;
         IDD idd = new IDD(null);
 

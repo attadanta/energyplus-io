@@ -1,4 +1,8 @@
-package eu.dareed.eplus;
+package eu.dareed.eplus.parsers.idd.tokens;
+
+import eu.dareed.eplus.parsers.Context;
+import eu.dareed.eplus.parsers.Stack;
+import eu.dareed.eplus.parsers.Token;
 
 /**
  * @author <a href="mailto:kiril.tonev@kit.edu">Kiril Tonev</a>

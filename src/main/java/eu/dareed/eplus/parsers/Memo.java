@@ -1,16 +1,16 @@
-package eu.dareed.eplus;
+package eu.dareed.eplus.parsers;
 
 import java.util.*;
 
 /**
  * @author <a href="mailto:kiril.tonev@kit.edu">Kiril Tonev</a>
  */
-class Memo implements Iterable<Token> {
+public class Memo implements Iterable<Token> {
 
     protected List<Token> tokens;
 
     public Memo() {
-        this.tokens = new ArrayList<Token>();
+        this.tokens = new ArrayList<>();
     }
 
     public Collection<Token> recall() {
