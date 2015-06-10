@@ -1,4 +1,4 @@
-package eu.knoholem.eplus;
+package eu.dareed.eplus;
 
 /**
  * @author <a href="mailto:kiril.tonev@kit.edu">Kiril Tonev</a>
@@ -20,6 +20,7 @@ public class Field extends Token {
                 stack.getMemo().memoize(this);
                 stack.pop(); // Remove this
                 stack.pop(); // Remove parent object
+                break;
             default:
                 this.contents.append(character);
                 break;

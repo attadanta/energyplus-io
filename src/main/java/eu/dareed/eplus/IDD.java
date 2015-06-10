@@ -1,4 +1,4 @@
-package eu.knoholem.eplus;
+package eu.dareed.eplus;
 
 /**
  * @author <a href="mailto:kiril.tonev@kit.edu">Kiril Tonev</a>
@@ -34,13 +34,10 @@ public class IDD extends Token {
                 IDDObject object = new IDDObject(context);
                 this.addChild(object);
 
-                Field field = new Field(context);
-                object.addChild(field);
-
                 stack.push(object);
-                stack.push(field);
 
-                field.insertCharacter(character, stack, context);
+                object.insertCharacter(character, stack, context);
+                break;
         }
     }
 }

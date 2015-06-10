@@ -1,4 +1,4 @@
-package eu.knoholem.eplus;
+package eu.dareed.eplus;
 
 import java.util.LinkedList;
 

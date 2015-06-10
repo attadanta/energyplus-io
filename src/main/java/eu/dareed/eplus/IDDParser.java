@@ -1,4 +1,4 @@
-package eu.knoholem.eplus;
+package eu.dareed.eplus;
 
 import java.io.*;
 
@@ -16,6 +16,7 @@ public class IDDParser {
         int lineNumber = 0;
         for (String line = stream.readLine(); line != null; ) {
             lineNumber++;
+            line = line + "\n";
             parser.parseLine(line, lineNumber);
             line = stream.readLine();
         }

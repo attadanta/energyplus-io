@@ -1,4 +1,4 @@
-package eu.knoholem.eplus;
+package eu.dareed.eplus;
 
 /**
  * @author <a href="mailto:kiril.tonev@kit.edu">Kiril Tonev</a>
@@ -19,6 +19,10 @@ public class IDDObject extends Token {
                 }
                 stack.push(comment);
                 break;
+            case '\t':
+                break;
+            case '\n':
+                break;
             case ' ':
                 break;
             default:
@@ -26,6 +30,7 @@ public class IDDObject extends Token {
                 this.addChild(field);
 
                 stack.push(field);
+                field.insertCharacter(character, stack, context);
                 break;
         }
     }

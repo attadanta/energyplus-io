@@ -1,4 +1,4 @@
-package eu.knoholem.eplus;
+package eu.dareed.eplus;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -32,5 +32,8 @@ public class IDDParserTest {
         IDD idd = new IDDParser().parse(resource);
 
         Assert.assertEquals(1, idd.getChildren().size());
+
+        IDDObject object = (IDDObject) idd.getChildren().get(0);
+        Assert.assertEquals(6, object.getChildren().size());
     }
 }
