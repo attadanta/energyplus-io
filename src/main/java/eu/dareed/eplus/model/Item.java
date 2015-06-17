@@ -9,5 +9,5 @@ import java.util.List;
  */
 public interface Item {
 
-    List<Field> getFields();
+    List<? extends Field> getFields();
 }

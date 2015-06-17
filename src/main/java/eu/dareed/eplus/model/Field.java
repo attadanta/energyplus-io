@@ -1,7 +1,7 @@
 package eu.dareed.eplus.model;
 
 /**
- * A field represent a value.
+ * A field represents a value.
  *
  * @author <a href="mailto:kiril.tonev@kit.edu">Kiril Tonev</a>
  * @see Item
