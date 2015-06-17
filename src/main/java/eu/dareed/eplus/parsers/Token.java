@@ -18,7 +18,7 @@ public abstract class Token {
     protected Token(Context context) {
         this.context = context;
         this.contents = new StringBuilder();
-        this.children = new ArrayList<Token>();
+        this.children = new ArrayList<>();
     }
 
     public abstract void insertCharacter(Character character, Stack stack, Context context);
