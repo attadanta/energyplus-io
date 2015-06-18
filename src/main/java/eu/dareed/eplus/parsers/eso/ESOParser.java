@@ -17,7 +17,7 @@ public class ESOParser extends FileParser<ESO, eu.dareed.eplus.model.eso.ESO> {
 
     @Override
     protected eu.dareed.eplus.model.eso.ESO processParseTree() {
-        ESO rootToken = (ESO) this.rootToken;
+        ESO rootToken = this.rootToken;
         ESOImpl eso = new ESOImpl(processVersionStatement(rootToken.getVersionStatement()));
 
         for (Token token : rootToken.getDataDictionary()) {

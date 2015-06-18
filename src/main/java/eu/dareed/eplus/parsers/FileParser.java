@@ -1,7 +1,6 @@
 package eu.dareed.eplus.parsers;
 
 import eu.dareed.eplus.model.Field;
-import eu.dareed.eplus.model.Item;
 
 import java.io.BufferedReader;
 import java.io.IOException;

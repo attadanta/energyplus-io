@@ -5,13 +5,13 @@ package eu.dareed.eplus.parsers;
  */
 public interface Stack {
 
-    public Token peek();
+    Token peek();
 
-    public Token pop();
+    Token pop();
 
-    public void push(Token token);
+    void push(Token token);
 
-    public Memo getMemo();
+    Memo getMemo();
 
-    public int size();
+    int size();
 }

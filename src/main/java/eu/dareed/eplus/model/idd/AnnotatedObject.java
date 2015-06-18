@@ -7,7 +7,7 @@ import java.util.List;
  */
 public interface AnnotatedObject {
 
-    List<Comment> getComments();
+    List<Annotation> getAnnotations();
 
     List<Parameter> getParameters();
     List<Parameter> getParameters(String name);

@@ -11,7 +11,7 @@ class StackImpl implements Stack {
     protected final Memo memo;
 
     protected StackImpl() {
-        this.stack = new LinkedList<Token>();
+        this.stack = new LinkedList<>();
         this.memo = new Memo();
     }
 
