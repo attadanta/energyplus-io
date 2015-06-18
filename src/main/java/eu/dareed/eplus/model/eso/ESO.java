@@ -8,7 +8,9 @@ import java.util.List;
  * @author <a href="mailto:kiril.tonev@kit.edu">Kiril Tonev</a>
  */
 public interface ESO {
-    public List<Item> getDataDictionary();
+    Item getVersionStatement();
 
-    public List<Item> getData();
+    List<Item> getDataDictionary();
+
+    List<Item> getData();
 }

@@ -52,6 +52,18 @@ public class ESO extends Token {
         super.addChild(token);
     }
 
+    public List<Line> getDataDictionary() {
+        return dataDictionary;
+    }
+
+    public List<Line> getData() {
+        return data;
+    }
+
+    public Line getVersionStatement() {
+        return versionStatement;
+    }
+
     protected void processControlStatement(Line line) {
         String statement = line.getChildren().get(0).getContents();
 
