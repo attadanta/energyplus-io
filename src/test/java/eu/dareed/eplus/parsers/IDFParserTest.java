@@ -1,10 +1,13 @@
 package eu.dareed.eplus.parsers;
 
+import eu.dareed.eplus.parsers.idf.IDFParser;
 import eu.dareed.eplus.parsers.idf.tokens.IDF;
 import eu.dareed.eplus.parsers.idf.tokens.IDFObject;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 
@@ -44,5 +47,17 @@ public class IDFParserTest {
         Assert.assertEquals(1, idf.getChildren().size());
         Assert.assertEquals(6, idf.getChildren().get(0).getChildren().size());
         Assert.assertEquals("WindowMaterial:Shade", idf.getChildren().get(0).getChildren().get(0).getContents());
+    }
+
+    @Test
+    public void parseFile() throws IOException {
+        InputStream resource = IDDParserTest.class.getResourceAsStream("/forum.idf");
+        eu.dareed.eplus.model.idf.IDF idf = new IDFParser().parseFile(resource);
+
+        List<eu.dareed.eplus.model.idf.IDFObject> actualItems = idf.getObjects();
+        Assert.assertEquals(2, actualItems.size());
+        Assert.assertEquals("Version", actualItems.get(0).getType());
+        Assert.assertEquals("SimulationControl", actualItems.get(1).getType());
+
     }
 }

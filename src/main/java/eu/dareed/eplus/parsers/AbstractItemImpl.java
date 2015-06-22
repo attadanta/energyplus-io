@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * An item implementation based on array list.
+ * An item implementation based on an array list.
  *
  * @author <a href="mailto:kiril.tonev@kit.edu">Kiril Tonev</a>
  */
@@ -31,11 +31,11 @@ public class AbstractItemImpl implements Item {
         return Collections.unmodifiableList(fields);
     }
 
-    public boolean addItem(Field field) {
+    public boolean addField(Field field) {
         return fields.add(field);
     }
 
-    public void addAllItems(Collection<? extends Field> fields) {
+    public void addAllFields(Collection<? extends Field> fields) {
         this.fields.addAll(fields);
     }
 }

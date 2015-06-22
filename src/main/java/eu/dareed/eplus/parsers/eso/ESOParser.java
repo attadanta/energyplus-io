@@ -22,13 +22,13 @@ public class ESOParser extends FileParser<ESO, eu.dareed.eplus.model.eso.ESO> {
 
         for (Token token : rootToken.getDataDictionary()) {
             AbstractItemImpl item = new AbstractItemImpl();
-            item.addAllItems(asFields(token.getChildren()));
+            item.addAllFields(asFields(token.getChildren()));
             eso.addDataDictionaryItem(item);
         }
 
         for (Token token : rootToken.getData()) {
             AbstractItemImpl item = new AbstractItemImpl();
-            item.addAllItems(asFields(token.getChildren()));
+            item.addAllFields(asFields(token.getChildren()));
             eso.addDataItem(item);
         }
 
@@ -37,7 +37,7 @@ public class ESOParser extends FileParser<ESO, eu.dareed.eplus.model.eso.ESO> {
 
     protected Item processVersionStatement(Token versionStatement) {
         AbstractItemImpl item = new AbstractItemImpl();
-        item.addAllItems(asFields(versionStatement.getChildren()));
+        item.addAllFields(asFields(versionStatement.getChildren()));
         return item;
     }
 }
