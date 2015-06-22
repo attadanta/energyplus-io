@@ -60,6 +60,11 @@ class FieldImpl implements IDDField {
     }
 
     @Override
+    public boolean booleanValue() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public String stringValue() {
         return name.trim();
     }

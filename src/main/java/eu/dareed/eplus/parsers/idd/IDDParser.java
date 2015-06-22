@@ -7,6 +7,7 @@ import eu.dareed.eplus.parsers.FileParser;
 import eu.dareed.eplus.parsers.Token;
 import eu.dareed.eplus.parsers.idd.tokens.Comment;
 import eu.dareed.eplus.parsers.idd.tokens.Field;
+import eu.dareed.eplus.parsers.idd.tokens.GroupRange;
 import eu.dareed.eplus.parsers.idd.tokens.IDD;
 import org.apache.commons.lang3.StringUtils;
 
@@ -27,9 +28,23 @@ public class IDDParser extends FileParser<IDD, eu.dareed.eplus.model.idd.IDD> {
         IDDImpl idd = new IDDImpl();
 
         IDD rootToken = this.rootToken;
+        List<GroupRange> groupRanges = rootToken.collectGroupRanges();
         for (Token token : rootToken.getChildren()) {
             if (token instanceof eu.dareed.eplus.parsers.idd.tokens.IDDObject) {
-                idd.addObject(processIDDObject((eu.dareed.eplus.parsers.idd.tokens.IDDObject) token));
+                IDDObject iddObject = processIDDObject((eu.dareed.eplus.parsers.idd.tokens.IDDObject) token);
+                GroupRange groupRange = null;
+                for (GroupRange candidateGroup : groupRanges) {
+                    int lineNumber = token.getContext().getLineNumber();
+                    if (lineNumber >= candidateGroup.startLine && lineNumber < candidateGroup.endLine) {
+                        groupRange = candidateGroup;
+                        break;
+                    }
+                }
+                if (groupRange == null) {
+                    idd.addObject(iddObject);
+                } else {
+                    idd.addObject(iddObject, groupRange);
+                }
             }
         }
 

@@ -24,6 +24,18 @@ public class AbstractFieldImplementation implements Field {
     }
 
     @Override
+    public boolean booleanValue() {
+        String value = stringValue();
+        if (value.equalsIgnoreCase("yes")) {
+            return true;
+        } else if (value.equalsIgnoreCase("no")) {
+            return false;
+        } else {
+            throw new IllegalArgumentException("Unexpected boolean value: `" + this.value + "'");
+        }
+    }
+
+    @Override
     public double doubleValue() {
         return Double.parseDouble(value);
     }

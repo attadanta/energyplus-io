@@ -9,6 +9,7 @@ package eu.dareed.eplus.model;
 public interface Field {
     String getRawValue();
 
+    boolean booleanValue();
     int integerValue();
     double doubleValue();
     String stringValue();

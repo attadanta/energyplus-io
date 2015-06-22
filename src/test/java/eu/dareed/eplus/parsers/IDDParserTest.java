@@ -57,6 +57,17 @@ public class IDDParserTest {
         Assert.assertEquals("unique-object", objectLevelComments.get(2).name());
         Assert.assertEquals("min-fields", objectLevelComments.get(3).name());
         Assert.assertEquals("5", objectLevelComments.get(3).asParameter().value());
+    }
 
+    @Test
+    public void testGroups() throws IOException {
+        InputStream resource = IDDParserTest.class.getResourceAsStream("/groups.idd");
+        eu.dareed.eplus.model.idd.IDD idd = new IDDParser().parseFile(resource);
+
+        Assert.assertFalse(idd.getGroupNames().isEmpty());
+        Assert.assertTrue(idd.getGroupMembers("locations").isEmpty());
+        Assert.assertFalse(idd.getGroupMembers("Simulation Parameters").isEmpty());
+        Assert.assertEquals(3, idd.getGroupMembers("Simulation Parameters").size());
+        Assert.assertEquals(5, idd.getAllObjects().size());
     }
 }
