@@ -1,6 +1,9 @@
 package eu.dareed.eplus.parsers.eso.tokens;
 
+import eu.dareed.eplus.parsers.Token;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -8,44 +11,52 @@ import java.util.List;
  */
 public class ScheduledOutput {
     protected final List<Line> head;
-
-    int startIndex;
-    int endIndex;
+    protected final List<ScheduledOutput> children;
+    protected Line line;
+    protected ScheduledOutput parent;
+    protected ScheduledOutput sibling;
 
     public ScheduledOutput() {
         this.head = new ArrayList<>();
+        this.children = new ArrayList<>();
     }
 
-    public int getStartIndex() {
-        return startIndex;
+    public Line getLine() {
+        return line;
     }
 
-    public void setStartIndex(int startIndex) {
-        this.startIndex = startIndex;
+    public void setLine(Line line) {
+        this.line = line;
     }
 
-    public int getEndIndex() {
-        return endIndex;
+    public ScheduledOutput getSibling() {
+        return sibling;
     }
 
-    public void setEndIndex(int endIndex) {
-        this.endIndex = endIndex;
+    public void setSibling(ScheduledOutput sibling) {
+        this.sibling = sibling;
     }
 
-    public int incrementEndIndex() {
-        endIndex++;
-        return endIndex;
+    public ScheduledOutput getParent() {
+        return parent;
     }
 
-    public int[] dataIndizes() {
-        return new int[]{startIndex, endIndex};
+    public void setParent(ScheduledOutput parent) {
+        this.parent = parent;
+        parent.children.add(this);
     }
 
-    public int[] headIndizes() {
-        return new int[]{head.get(0).getContext().getLineNumber(), head.get(head.size() - 1).getContext().getLineNumber()};
+    public int controlNumber() {
+        Token token = line.getChildren().get(0);
+        return Integer.parseInt(token.getContents());
     }
 
-    public boolean addHeader(Line line) {
-        return head.add(line);
+    public List<ScheduledOutput> getChildren() {
+        return Collections.unmodifiableList(children);
+    }
+
+    @Override
+    public String toString() {
+        return "ScheduledOutput{ " + controlNumber() + ", " + line.getChildren().get(1).getContents() + " }";
     }
 }

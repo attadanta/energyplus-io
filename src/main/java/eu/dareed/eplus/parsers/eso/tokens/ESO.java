@@ -4,7 +4,6 @@ import eu.dareed.eplus.parsers.Context;
 import eu.dareed.eplus.parsers.Stack;
 import eu.dareed.eplus.parsers.Token;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,9 +15,7 @@ public class ESO extends Token {
     protected final List<Line> dataDictionary;
     protected final List<Line> data;
 
-    protected final List<ScheduledOutput> scheduledOutputs;
-    protected ScheduledOutput currentOutput;
-    protected Line lastLine;
+    protected final OutputsStack outputsStack;
 
     protected Line versionStatement;
 
@@ -30,7 +27,7 @@ public class ESO extends Token {
 
         this.dataDictionary = new LinkedList<>();
 
-        this.scheduledOutputs = new ArrayList<>();
+        this.outputsStack = new OutputsStack();
         this.data = new LinkedList<>();
     }
 
@@ -59,12 +56,12 @@ public class ESO extends Token {
         super.addChild(token);
     }
 
-    public List<Line> getDataDictionary() {
-        return dataDictionary;
+    public OutputsStack getOutputsStack() {
+        return outputsStack;
     }
 
-    public List<ScheduledOutput> getScheduledOutputs() {
-        return scheduledOutputs;
+    public List<Line> getDataDictionary() {
+        return dataDictionary;
     }
 
     public List<Line> getData() {
@@ -89,49 +86,10 @@ public class ESO extends Token {
     }
 
     private void processDataItem(Line line) {
-        if (updateScheduledOutput(line)) {
-            scheduledOutputs.add(currentOutput);
+        if (outputsStack.offer(line)) {
+            line.setScheduledOutput(outputsStack.getCurrentOutput());
         }
 
-        this.lastLine = line;
         this.data.add(line);
-    }
-
-    private boolean updateScheduledOutput(Line line) {
-        // This should check for errors.
-        ScheduledOutput output;
-        boolean newOutput = false;
-        if (lastLine != null) {
-            if (isScheduledOutputHeader(lastLine)) {
-                output = currentOutput;
-                if (isScheduledOutputHeader(line)) {
-                    output.addHeader(line);
-                } else {
-                    output.setStartIndex(line.getContext().getLineNumber());
-                    output.setEndIndex(line.getContext().getLineNumber());
-                }
-            } else {
-                if (isScheduledOutputHeader(line)) {
-                    output = new ScheduledOutput();
-                    this.currentOutput = output;
-                    output.addHeader(line);
-                    newOutput = true;
-                } else {
-                    output = currentOutput;
-                    output.incrementEndIndex();
-                }
-            }
-        } else {
-            output = new ScheduledOutput();
-            this.currentOutput = output;
-            output.addHeader(line);
-            newOutput = true;
-        }
-        return newOutput;
-    }
-
-    private boolean isScheduledOutputHeader(Line line) {
-        int controlNumber = Integer.parseInt(line.getChildren().get(0).getContents());
-        return controlNumber >= 1 && controlNumber <= 5;
     }
 }

@@ -2,6 +2,7 @@ package eu.dareed.eplus.parsers;
 
 import eu.dareed.eplus.model.eso.ESO;
 import eu.dareed.eplus.parsers.eso.ESOParser;
+import eu.dareed.eplus.parsers.eso.tokens.OutputsStack;
 import eu.dareed.eplus.parsers.eso.tokens.ScheduledOutput;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -59,15 +60,14 @@ public class ESOParserTest {
     @Test
     public void testScheduledOutputs() throws IOException {
         eu.dareed.eplus.parsers.eso.tokens.ESO rootToken = new ESOParser().parse(in);
-        List<ScheduledOutput> scheduledOutputs = rootToken.getScheduledOutputs();
+        OutputsStack queue = rootToken.getOutputsStack();
 
-        Assert.assertEquals(2, scheduledOutputs.size());
-        ScheduledOutput firstOutput = scheduledOutputs.get(0);
-        Assert.assertEquals(10, firstOutput.getStartIndex());
-        Assert.assertEquals(11, firstOutput.getEndIndex());
+        List<ScheduledOutput> roots = queue.getRoots();
+        Assert.assertEquals(2, roots.size());
 
-        ScheduledOutput secondOutput = scheduledOutputs.get(1);
-        Assert.assertEquals(14, secondOutput.getStartIndex());
-        Assert.assertEquals(15, secondOutput.getEndIndex());
+        ScheduledOutput output = roots.get(0);
+        Assert.assertEquals(1, output.controlNumber());
+        Assert.assertNotNull(output.getSibling());
+        Assert.assertEquals(1, output.getChildren().size());
     }
 }
