@@ -68,6 +68,8 @@ public class ESOParserTest {
         ScheduledOutput output = roots.get(0);
         Assert.assertEquals(1, output.controlNumber());
         Assert.assertNotNull(output.getSibling());
+        Assert.assertNull(output.getParent());
         Assert.assertEquals(1, output.getChildren().size());
+        Assert.assertNotNull(output.getChildren().get(0).getParent());
     }
 }

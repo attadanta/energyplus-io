@@ -8,26 +8,16 @@ import java.util.*;
 public class OutputsStack {
     protected final Deque<ScheduledOutput> stack;
     protected final List<ScheduledOutput> roots;
-    protected final List<Line> items;
     protected ScheduledOutput currentOutput;
     protected Line lastLine;
 
     public OutputsStack() {
         this.stack = new LinkedList<>();
         this.roots = new ArrayList<>();
-        this.items = new ArrayList<>();
     }
 
     public List<ScheduledOutput> getRoots() {
         return Collections.unmodifiableList(roots);
-    }
-
-    public List<Line> getItems() {
-        return Collections.unmodifiableList(items);
-    }
-
-    public boolean addItem(Line line) {
-        return this.items.add(line);
     }
 
     public boolean offer(Line line) {

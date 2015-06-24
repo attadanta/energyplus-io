@@ -10,15 +10,15 @@ import java.util.List;
  * @author <a href="mailto:kiril.tonev@kit.edu">Kiril Tonev</a>
  */
 public class ScheduledOutput {
-    protected final List<Line> head;
     protected final List<ScheduledOutput> children;
+    protected final List<Line> items;
     protected Line line;
     protected ScheduledOutput parent;
     protected ScheduledOutput sibling;
 
     public ScheduledOutput() {
-        this.head = new ArrayList<>();
         this.children = new ArrayList<>();
+        this.items = new ArrayList<>();
     }
 
     public Line getLine() {
@@ -53,6 +53,14 @@ public class ScheduledOutput {
 
     public List<ScheduledOutput> getChildren() {
         return Collections.unmodifiableList(children);
+    }
+
+    public List<Line> getItems() {
+        return Collections.unmodifiableList(items);
+    }
+
+    public boolean addItem(Line line) {
+        return this.items.add(line);
     }
 
     @Override
