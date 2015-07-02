@@ -4,7 +4,7 @@ import eu.dareed.eplus.model.Field;
 import eu.dareed.eplus.model.idf.IDFObject;
 
 import java.io.IOException;
-import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +22,7 @@ public class IDFWriter {
         return new ObjectBuilder(this, type);
     }
 
-    public void write(OutputStreamWriter writer) throws IOException {
+    public void write(PrintWriter writer) throws IOException {
         for (IDFObject o : objects) {
             writer.write(o.getType());
 

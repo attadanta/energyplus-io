@@ -5,7 +5,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 
 /**
  * @author <a href="mailto:kiril.tonev@kit.edu">Kiril Tonev</a>
@@ -17,7 +17,7 @@ public class IDFWriterTest {
         ObjectBuilder building = idfWriter.createObject("Building");
         building.build();
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-        OutputStreamWriter writer = new OutputStreamWriter(out);
+        PrintWriter writer = new PrintWriter(out);
         idfWriter.write(writer);
         writer.flush();
         Assert.assertEquals("Building;\n\n", out.toString("UTF-8"));
@@ -31,7 +31,7 @@ public class IDFWriterTest {
         building.addValue("y");
         building.build();
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-        OutputStreamWriter writer = new OutputStreamWriter(out);
+        PrintWriter writer = new PrintWriter(out);
         idfWriter.write(writer);
         writer.flush();
         Assert.assertEquals("Building,\n  x,\n  y;\n\n", out.toString("UTF-8"));
