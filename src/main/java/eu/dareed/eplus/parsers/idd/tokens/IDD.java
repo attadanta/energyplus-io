@@ -37,6 +37,10 @@ public class IDD extends Token {
                     this.comments.add(comment);
                 }
                 break;
+            case '!':
+                IgnoreComment ignoreComment = new IgnoreComment(context);
+                stack.push(ignoreComment);
+                break;
             case '\n':
                 stack.getMemo().erase();
                 break;
