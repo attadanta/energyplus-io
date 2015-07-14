@@ -15,7 +15,6 @@ public class IDFWriterTest {
     public void testSingleValue() throws IOException {
         IDFWriter idfWriter = new IDFWriter();
         ObjectBuilder building = idfWriter.createObject("Building");
-        building.build();
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         PrintWriter writer = new PrintWriter(out);
         idfWriter.write(writer);
@@ -29,7 +28,6 @@ public class IDFWriterTest {
         ObjectBuilder building = idfWriter.createObject("Building");
         building.addValue("x");
         building.addValue("y");
-        building.build();
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         PrintWriter writer = new PrintWriter(out);
         idfWriter.write(writer);

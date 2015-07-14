@@ -19,7 +19,9 @@ public class IDFWriter {
     }
 
     public ObjectBuilder createObject(String type) {
-        return new ObjectBuilder(this, type);
+        ObjectBuilder objectBuilder = new ObjectBuilder(type);
+        this.objects.add(objectBuilder.object);
+        return objectBuilder;
     }
 
     public void write(PrintWriter writer) throws IOException {

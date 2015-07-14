@@ -8,21 +8,14 @@ import eu.dareed.eplus.parsers.AbstractItemImpl;
  * @author <a href="mailto:kiril.tonev@kit.edu">Kiril Tonev</a>
  */
 public class ObjectBuilder {
-    protected final IDFWriter source;
     protected final WritableIDFObject object;
 
-    public ObjectBuilder(IDFWriter source, String type) {
-        this.source = source;
+    public ObjectBuilder(String type) {
         this.object = new WritableIDFObject(type);
     }
 
     public void addValue(String rawValue) {
         object.addField(new AbstractFieldImplementation(rawValue));
-    }
-
-    public IDFObject build() {
-        source.objects.add(object);
-        return object;
     }
 
     protected final class WritableIDFObject extends AbstractItemImpl implements IDFObject {
