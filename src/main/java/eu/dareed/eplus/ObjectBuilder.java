@@ -18,6 +18,10 @@ public class ObjectBuilder {
         object.addField(new AbstractFieldImplementation(rawValue));
     }
 
+    public IDFObject getObject() {
+        return object;
+    }
+
     protected final class WritableIDFObject extends AbstractItemImpl implements IDFObject {
         protected final String type;
 
