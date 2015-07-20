@@ -18,10 +18,19 @@ public class IDFWriter {
         objects = new ArrayList<>();
     }
 
-    public ObjectBuilder createObject(String type) {
+    public ObjectBuilder buildObject(String type) {
         ObjectBuilder objectBuilder = new ObjectBuilder(type);
         this.objects.add(objectBuilder.object);
         return objectBuilder;
+    }
+
+    public IDFObject createObject(String type, String[] values) {
+        ObjectBuilder objectBuilder = new ObjectBuilder(type);
+        for (String value : values) {
+            objectBuilder.addValue(value);
+        }
+        this.objects.add(objectBuilder.object);
+        return objectBuilder.getObject();
     }
 
     public void write(PrintWriter writer) throws IOException {

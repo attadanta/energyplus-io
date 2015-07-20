@@ -14,7 +14,7 @@ public class IDFWriterTest {
     @Test
     public void testSingleValue() throws IOException {
         IDFWriter idfWriter = new IDFWriter();
-        ObjectBuilder building = idfWriter.createObject("Building");
+        ObjectBuilder building = idfWriter.buildObject("Building");
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         PrintWriter writer = new PrintWriter(out);
         idfWriter.write(writer);
@@ -25,7 +25,7 @@ public class IDFWriterTest {
     @Test
     public void testMultipleValues() throws IOException {
         IDFWriter idfWriter = new IDFWriter();
-        ObjectBuilder building = idfWriter.createObject("Building");
+        ObjectBuilder building = idfWriter.buildObject("Building");
         building.addValue("x");
         building.addValue("y");
         ByteArrayOutputStream out = new ByteArrayOutputStream();
