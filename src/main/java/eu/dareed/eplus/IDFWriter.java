@@ -1,7 +1,9 @@
 package eu.dareed.eplus;
 
 import eu.dareed.eplus.model.Field;
+import eu.dareed.eplus.model.idf.IDF;
 import eu.dareed.eplus.model.idf.IDFObject;
+import eu.dareed.eplus.parsers.idf.IDFImpl;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -22,6 +24,10 @@ public class IDFWriter {
         ObjectBuilder objectBuilder = new ObjectBuilder(type);
         this.objects.add(objectBuilder.object);
         return objectBuilder;
+    }
+
+    public IDF getIDF() {
+        return new IDFImpl(objects);
     }
 
     public IDFObject createObject(String type, String[] values) {

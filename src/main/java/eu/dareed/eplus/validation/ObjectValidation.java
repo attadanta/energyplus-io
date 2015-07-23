@@ -1,8 +1,10 @@
 package eu.dareed.eplus.validation;
 
 import eu.dareed.eplus.model.Field;
+import eu.dareed.eplus.model.idd.Annotation;
 import eu.dareed.eplus.model.idd.IDDField;
 import eu.dareed.eplus.model.idd.IDDObject;
+import eu.dareed.eplus.model.idf.IDF;
 import eu.dareed.eplus.model.idf.IDFObject;
 
 import java.util.ArrayList;
@@ -12,10 +14,12 @@ import java.util.List;
  * @author <a href="mailto:kiril.tonev@kit.edu">Kiril Tonev</a>
  */
 class ObjectValidation {
+    protected final IDF idf;
     protected final IDDObject dataDictionaryObject;
     protected final IDFObject idfObject;
 
-    public ObjectValidation(IDDObject dataDictionaryObject, IDFObject idfObject) {
+    public ObjectValidation(IDF idf, IDDObject dataDictionaryObject, IDFObject idfObject) {
+        this.idf = idf;
         this.dataDictionaryObject = dataDictionaryObject;
         this.idfObject = idfObject;
     }
@@ -31,5 +35,22 @@ class ObjectValidation {
         }
 
         return result;
+    }
+
+    protected List<ValidityCheck> initializeObjectLevelChecks() {
+        List<ValidityCheck> checks = new ArrayList<>();
+
+        for (Annotation annotation : dataDictionaryObject.getAnnotations()) {
+            switch (annotation.name()) {
+                case "unique-object":
+                    checks.add(new UniqueObject(idf, idfObject));
+                    break;
+                case "min-fields":
+                    checks.add(new MinimumFields(Integer.parseInt(annotation.asParameter().value()), idfObject));
+                    break;
+            }
+        }
+
+        return checks;
     }
 }

@@ -1,0 +1,25 @@
+package eu.dareed.eplus.validation;
+
+import eu.dareed.eplus.model.idf.IDF;
+import eu.dareed.eplus.model.idf.IDFObject;
+
+import java.util.List;
+
+/**
+ * @author <a href="mailto:kiril.tonev@kit.edu">Kiril Tonev</a>
+ */
+class UniqueObject implements ValidityCheck {
+    protected final IDF idf;
+    protected final IDFObject object;
+
+    public UniqueObject(IDF idf, IDFObject dataDictionaryObject) {
+        this.idf = idf;
+        this.object = dataDictionaryObject;
+    }
+
+    @Override
+    public boolean performCheck() {
+        List<IDFObject> objects = idf.findObjects(object.getType());
+        return objects.size() == 1 && objects.get(0) == object;
+    }
+}

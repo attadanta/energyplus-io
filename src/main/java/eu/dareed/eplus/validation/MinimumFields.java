@@ -1,0 +1,21 @@
+package eu.dareed.eplus.validation;
+
+import eu.dareed.eplus.model.idf.IDFObject;
+
+/**
+ * @author <a href="mailto:kiril.tonev@kit.edu">Kiril Tonev</a>
+ */
+class MinimumFields implements ValidityCheck {
+    protected final int minimumFields;
+    protected final IDFObject object;
+
+    public MinimumFields(int minimumFields, IDFObject object) {
+        this.minimumFields = minimumFields;
+        this.object = object;
+    }
+
+    @Override
+    public boolean performCheck() {
+        return object.getFields().size() > minimumFields;
+    }
+}

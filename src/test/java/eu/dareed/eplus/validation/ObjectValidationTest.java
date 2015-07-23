@@ -28,14 +28,15 @@ public class ObjectValidationTest {
     @Test
     public void testDistributeFieldChecks() {
         IDDObject building = dataDictionary.findObject("Building");
-        IDFObject object = new IDFWriter().createObject("Building", new String[]{"way:308064632",
+        IDFWriter writer = new IDFWriter();
+        IDFObject object = writer.createObject("Building", new String[]{"way:308064632",
                 "0.0000000E+00",
                 "Suburbs",
                 ".04",
                 ".004",
                 "MinimalShadowing",
                 "30"});
-        ObjectValidation objectValidation = new ObjectValidation(building, object);
+        ObjectValidation objectValidation = new ObjectValidation(writer.getIDF(), building, object);
         List<FieldValidation> pairs = objectValidation.initializeFieldValidations();
 
         Assert.assertEquals(7, pairs.size());
@@ -52,14 +53,15 @@ public class ObjectValidationTest {
     @Test
     public void testInitializeRealFieldChecker() {
         IDDObject building = dataDictionary.findObject("Building");
-        IDFObject object = new IDFWriter().createObject("Building", new String[]{"way:308064632",
+        IDFWriter writer = new IDFWriter();
+        IDFObject object = writer.createObject("Building", new String[]{"way:308064632",
                 "0.0000000E+00",
                 "Suburbs",
                 ".04",
                 ".004",
                 "MinimalShadowing",
                 "30"});
-        ObjectValidation objectValidation = new ObjectValidation(building, object);
+        ObjectValidation objectValidation = new ObjectValidation(writer.getIDF(), building, object);
         List<FieldValidation> pairs = objectValidation.initializeFieldValidations();
 
         List<ValidityCheck> northFieldChecks = pairs.get(1).gatherValidityChecks();
@@ -71,14 +73,15 @@ public class ObjectValidationTest {
     @Test
     public void testInitializeChoiceFieldChecker() {
         IDDObject building = dataDictionary.findObject("Building");
-        IDFObject object = new IDFWriter().createObject("Building", new String[]{"way:308064632",
+        IDFWriter writer = new IDFWriter();
+        IDFObject object = writer.createObject("Building", new String[]{"way:308064632",
                 "0.0000000E+00",
                 "Suburbs",
                 ".04",
                 ".004",
                 "MinimalShadowing",
                 "30"});
-        ObjectValidation objectValidation = new ObjectValidation(building, object);
+        ObjectValidation objectValidation = new ObjectValidation(writer.getIDF(), building, object);
         List<FieldValidation> pairs = objectValidation.initializeFieldValidations();
 
         List<ValidityCheck> terrainChecks = pairs.get(2).gatherValidityChecks();
@@ -90,14 +93,15 @@ public class ObjectValidationTest {
     @Test
     public void testInitializeRangeFieldCheckers() {
         IDDObject building = dataDictionary.findObject("Building");
-        IDFObject object = new IDFWriter().createObject("Building", new String[]{"way:308064632",
+        IDFWriter writer = new IDFWriter();
+        IDFObject object = writer.createObject("Building", new String[]{"way:308064632",
                 "0.0000000E+00",
                 "Suburbs",
                 ".04",
                 ".004",
                 "MinimalShadowing",
                 "30"});
-        ObjectValidation objectValidation = new ObjectValidation(building, object);
+        ObjectValidation objectValidation = new ObjectValidation(writer.getIDF(), building, object);
         List<FieldValidation> pairs = objectValidation.initializeFieldValidations();
 
         List<ValidityCheck> convergenceChecks = pairs.get(3).gatherValidityChecks();
@@ -112,4 +116,24 @@ public class ObjectValidationTest {
         Assert.assertTrue(convergenceChecks.get(2).performCheck());
     }
 
+    @Test
+    public void testObjectLevelCheckers() {
+        IDDObject building = dataDictionary.findObject("Building");
+        IDFWriter writer = new IDFWriter();
+        IDFObject object = writer.createObject("Building", new String[]{"way:308064632",
+                "0.0000000E+00",
+                "Suburbs",
+                ".04",
+                ".004",
+                "MinimalShadowing",
+                "30"});
+        ObjectValidation objectValidation = new ObjectValidation(writer.getIDF(), building, object);
+        List<ValidityCheck> objectLevelChecks = objectValidation.initializeObjectLevelChecks();
+
+        Assert.assertEquals(2, objectLevelChecks.size());
+        Assert.assertEquals(UniqueObject.class, objectLevelChecks.get(0).getClass());
+        Assert.assertTrue(objectLevelChecks.get(0).performCheck());
+        Assert.assertEquals(MinimumFields.class, objectLevelChecks.get(1).getClass());
+        Assert.assertFalse(objectLevelChecks.get(1).performCheck());
+    }
 }
