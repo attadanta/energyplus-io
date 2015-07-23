@@ -16,7 +16,7 @@ class RequiredObject implements ValidityCheck {
 
     @Override
     public boolean performCheck() {
-        return !idf.findObjects(requiredType).isEmpty();
+        return !idf.findInstances(requiredType).isEmpty();
     }
 
     @Override

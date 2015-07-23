@@ -19,7 +19,7 @@ class UniqueObject implements ValidityCheck {
 
     @Override
     public boolean performCheck() {
-        List<IDFObject> objects = idf.findObjects(object.getType());
+        List<IDFObject> objects = idf.findInstances(object.getType());
         return objects.size() == 1 && objects.get(0) == object;
     }
 

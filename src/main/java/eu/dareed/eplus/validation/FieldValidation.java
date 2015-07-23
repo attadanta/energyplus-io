@@ -3,6 +3,7 @@ package eu.dareed.eplus.validation;
 import eu.dareed.eplus.model.Field;
 import eu.dareed.eplus.model.idd.Annotation;
 import eu.dareed.eplus.model.idd.IDDField;
+import eu.dareed.eplus.model.idf.IDF;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -12,16 +13,19 @@ import java.util.List;
  * @author <a href="mailto:kiril.tonev@kit.edu">Kiril Tonev</a>
  */
 class FieldValidation {
+    protected final IDF idf;
     protected final IDDField dictionaryField;
     protected final Field field;
 
     /**
      * Default constructor.
      *
+     * @param idf the input IDF data.
      * @param dictionaryField the field in the data dictionary containing the value constraints.
      * @param objectField     the value to test.
      */
-    public FieldValidation(IDDField dictionaryField, Field objectField) {
+    public FieldValidation(IDF idf, IDDField dictionaryField, Field objectField) {
+        this.idf = idf;
         this.dictionaryField = dictionaryField;
         this.field = objectField;
     }
@@ -50,6 +54,9 @@ class FieldValidation {
                     switch (value) {
                         case "integer":
                             checks.add(new IntegerCheck(dictionaryField, field));
+                            break;
+                        case "object-list":
+                            checks.add(new Reference(dictionaryField, field, idf));
                             break;
                         case "real":
                             checks.add(new RealNumberCheck(dictionaryField, field));

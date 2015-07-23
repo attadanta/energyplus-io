@@ -31,7 +31,7 @@ class ObjectValidation {
         int commonFields = Math.min(dataDictionaryObjectFields.size(), idfObjectFields.size());
         List<FieldValidation> result = new ArrayList<>(commonFields);
         for (int i = 0; i < commonFields; i++) {
-            result.add(new FieldValidation(dataDictionaryObjectFields.get(i), idfObjectFields.get(i)));
+            result.add(new FieldValidation(idf, dataDictionaryObjectFields.get(i), idfObjectFields.get(i)));
         }
 
         return result;
