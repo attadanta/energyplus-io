@@ -73,7 +73,7 @@ public class IDDParser extends FileParser<IDD, eu.dareed.eplus.model.idd.IDD> {
     }
 
     private IDDField processField(Field field) {
-        FieldImpl iddField = new FieldImpl(field.getContents());
+        FieldImpl iddField = new FieldImpl(field.getContents().trim());
 
         for (Token token : field.getChildren()) {
             if (token instanceof Comment) {
