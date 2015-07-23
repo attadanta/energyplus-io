@@ -4,6 +4,7 @@ import eu.dareed.eplus.model.idd.Annotation;
 import eu.dareed.eplus.model.idd.IDD;
 import eu.dareed.eplus.model.idd.IDDObject;
 import eu.dareed.eplus.model.idf.IDF;
+import eu.dareed.eplus.model.idf.IDFObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,33 @@ public class IDFValidation {
     public IDFValidation(IDF idf, IDD dataDictionary) {
         this.idf = idf;
         this.dataDictionary = dataDictionary;
+    }
+
+    public List<ValidityCheck> collectValidators() {
+        List<ValidityCheck> result = new ArrayList<>();
+
+        result.addAll(initializeGlobalValidators());
+        for (IDFObject idfObject : idf.getObjects()) {
+            ObjectValidation validation = new ObjectValidation(idf, dataDictionary.findObject(idfObject.getType()), idfObject);
+            result.addAll(validation.initializeObjectLevelChecks());
+            for (FieldValidation fieldValidation : validation.initializeFieldValidations()) {
+                result.addAll(fieldValidation.gatherValidityChecks());
+            }
+        }
+
+        return result;
+    }
+
+    public List<ValidityCheck> collectOffences() {
+        List<ValidityCheck> result = new ArrayList<>();
+
+        for (ValidityCheck check : collectValidators()) {
+            if (!check.performCheck()) {
+                result.add(check);
+            }
+        }
+
+        return result;
     }
 
     protected List<ValidityCheck> initializeGlobalValidators() {
