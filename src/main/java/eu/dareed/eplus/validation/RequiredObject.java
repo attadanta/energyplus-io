@@ -18,4 +18,9 @@ class RequiredObject implements ValidityCheck {
     public boolean performCheck() {
         return !idf.findObjects(requiredType).isEmpty();
     }
+
+    @Override
+    public String renderOffence() {
+        return "The IDF file requires an object of type " + requiredType + ".";
+    }
 }

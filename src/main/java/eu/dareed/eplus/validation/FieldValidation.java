@@ -31,31 +31,31 @@ class FieldValidation {
         for (Annotation annotation : dictionaryField.getAnnotations()) {
             switch (annotation.name()) {
                 case "required-field":
-                    checks.add(new RequiredField(field));
+                    checks.add(new RequiredField(dictionaryField, field));
                     break;
                 case "maximum":
-                    checks.add(new MaximumInclusive(Double.parseDouble(annotation.asParameter().value()), field));
+                    checks.add(new MaximumInclusive(Double.parseDouble(annotation.asParameter().value()), dictionaryField, field));
                     break;
                 case "maximum<":
-                    checks.add(new Maximum(Double.parseDouble(annotation.asParameter().value()), field));
+                    checks.add(new Maximum(Double.parseDouble(annotation.asParameter().value()), dictionaryField, field));
                     break;
                 case "minimum":
-                    checks.add(new MaximumInclusive(Double.parseDouble(annotation.asParameter().value()), field));
+                    checks.add(new MinimumInclusive(Double.parseDouble(annotation.asParameter().value()), dictionaryField, field));
                     break;
                 case "minimum>":
-                    checks.add(new Minimum(Double.parseDouble(annotation.asParameter().value()), field));
+                    checks.add(new Minimum(Double.parseDouble(annotation.asParameter().value()), dictionaryField, field));
                     break;
                 case "type":
                     String value = annotation.asParameter().value();
                     switch (value) {
                         case "integer":
-                            checks.add(new IntegerCheck(field));
+                            checks.add(new IntegerCheck(dictionaryField, field));
                             break;
                         case "real":
-                            checks.add(new RealNumberCheck(field));
+                            checks.add(new RealNumberCheck(dictionaryField, field));
                             break;
                         case "choice":
-                            checks.add(new Choice(field, collectKeys(dictionaryField.getAnnotations())));
+                            checks.add(new Choice(dictionaryField, field, collectKeys(dictionaryField.getAnnotations())));
                             break;
                     }
             }

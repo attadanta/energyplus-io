@@ -22,4 +22,9 @@ class UniqueObject implements ValidityCheck {
         List<IDFObject> objects = idf.findObjects(object.getType());
         return objects.size() == 1 && objects.get(0) == object;
     }
+
+    @Override
+    public String renderOffence() {
+        return "Object " + object.getType() + " should be unique in the IDF file. Multiple files of the same type were found.";
+    }
 }

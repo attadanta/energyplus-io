@@ -18,4 +18,9 @@ class MinimumFields implements ValidityCheck {
     public boolean performCheck() {
         return object.getFields().size() > minimumFields;
     }
+
+    @Override
+    public String renderOffence() {
+        return "Object " + object.getType() + " should have at least " + minimumFields + " fields. It has " + object.getFields().size() + " instead.";
+    }
 }

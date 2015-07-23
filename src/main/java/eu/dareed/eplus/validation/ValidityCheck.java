@@ -5,4 +5,6 @@ package eu.dareed.eplus.validation;
  */
 public interface ValidityCheck {
     boolean performCheck();
+
+    String renderOffence();
 }
