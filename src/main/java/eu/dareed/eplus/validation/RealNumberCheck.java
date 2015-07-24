@@ -17,12 +17,20 @@ class RealNumberCheck implements ValidityCheck {
 
     @Override
     public boolean performCheck() {
+        return checkNumericalValue() || checkAutocalculable();
+    }
+
+    protected boolean checkNumericalValue() {
         try {
             field.doubleValue();
             return true;
         } catch (NumberFormatException e) {
             return false;
         }
+    }
+
+    protected boolean checkAutocalculable() {
+        return field.stringValue().equals("autocalculate") && iddField.isSet("autocalculatable");
     }
 
     @Override

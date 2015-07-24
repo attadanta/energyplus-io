@@ -16,7 +16,7 @@ class MinimumFields implements ValidityCheck {
 
     @Override
     public boolean performCheck() {
-        return object.getFields().size() > minimumFields;
+        return object.getFields().size() >= minimumFields;
     }
 
     @Override
