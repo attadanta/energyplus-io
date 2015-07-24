@@ -26,7 +26,15 @@ public class IDFValidation {
 
         result.addAll(initializeGlobalValidators());
         for (IDFObject idfObject : idf.getObjects()) {
-            ObjectValidation validation = new ObjectValidation(idf, dataDictionary.findObject(idfObject.getType()), idfObject);
+            IDDObject dataDictionaryObject = dataDictionary.findObject(idfObject.getType());
+
+            ObjectValidation validation;
+            if (dataDictionaryObject == null) {
+                validation = new FailingValidation(idf, idfObject, new UnknownObjectType(idfObject.getType()));
+            } else {
+                validation = new ObjectValidation(idf, dataDictionaryObject, idfObject);
+            }
+
             result.addAll(validation.initializeObjectLevelChecks());
             for (FieldValidation fieldValidation : validation.initializeFieldValidations()) {
                 result.addAll(fieldValidation.gatherValidityChecks());
