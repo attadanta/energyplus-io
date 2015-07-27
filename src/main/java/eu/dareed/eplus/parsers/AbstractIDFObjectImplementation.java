@@ -1,9 +1,7 @@
-package eu.dareed.eplus.parsers.idf;
+package eu.dareed.eplus.parsers;
 
-import eu.dareed.eplus.model.Field;
 import eu.dareed.eplus.model.idf.IDFField;
 import eu.dareed.eplus.model.idf.IDFObject;
-import eu.dareed.eplus.parsers.AbstractItemImpl;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,16 +10,20 @@ import java.util.List;
 /**
  * @author <a href="mailto:kiril.tonev@kit.edu">Kiril Tonev</a>
  */
-class IDFObjectImpl extends AbstractItemImpl implements IDFObject {
-
-    protected final List<IDFField> fields;
+public class AbstractIDFObjectImplementation implements IDFObject {
     protected final int lineNumber;
     protected final String type;
+    protected final List<IDFField> fields;
 
-    public IDFObjectImpl(int lineNumber, String type) {
+    public AbstractIDFObjectImplementation(int lineNumber, String type) {
         this.lineNumber = lineNumber;
         this.type = type;
         this.fields = new ArrayList<>();
+    }
+
+    @Override
+    public String getType() {
+        return type;
     }
 
     @Override
@@ -30,7 +32,7 @@ class IDFObjectImpl extends AbstractItemImpl implements IDFObject {
     }
 
     @Override
-    public Field getField(int index) {
+    public IDFField getField(int index) {
         return fields.get(index);
     }
 
@@ -39,12 +41,8 @@ class IDFObjectImpl extends AbstractItemImpl implements IDFObject {
         return Collections.unmodifiableList(fields);
     }
 
-    public boolean addField(IDFField field) {
-        return fields.add(field);
-    }
-
-    @Override
-    public String getType() {
-        return type;
+    public boolean addField(String value) {
+        int lineNumber = this.lineNumber + fields.size() + 1;
+        return this.fields.add(new AbstractIDFFieldImplementation(lineNumber, value));
     }
 }

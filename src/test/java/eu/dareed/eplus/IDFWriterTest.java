@@ -34,4 +34,16 @@ public class IDFWriterTest {
         writer.flush();
         Assert.assertEquals("Building,\n  x,\n  y;\n\n", out.toString("UTF-8"));
     }
+
+    @Test
+    public void testDetermineLastNumber() {
+        IDFWriter idfWriter = new IDFWriter();
+        Assert.assertEquals(1, idfWriter.lastLineNumber());
+
+        ObjectBuilder building = idfWriter.buildObject("Building");
+        Assert.assertEquals(3, idfWriter.lastLineNumber());
+        building.addValue("3");
+
+        Assert.assertEquals(4, idfWriter.lastLineNumber());
+    }
 }

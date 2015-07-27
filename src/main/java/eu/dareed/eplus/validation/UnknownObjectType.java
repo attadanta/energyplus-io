@@ -3,7 +3,7 @@ package eu.dareed.eplus.validation;
 /**
  * @author <a href="mailto:kiril.tonev@kit.edu">Kiril Tonev</a>
  */
-public class UnknownObjectType implements ValidityCheck {
+class UnknownObjectType implements ValidityCheck {
     protected final String objectType;
 
     public UnknownObjectType(String objectType) {

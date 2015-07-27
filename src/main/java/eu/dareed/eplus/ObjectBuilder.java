@@ -1,37 +1,23 @@
 package eu.dareed.eplus;
 
 import eu.dareed.eplus.model.idf.IDFObject;
-import eu.dareed.eplus.parsers.AbstractFieldImplementation;
-import eu.dareed.eplus.parsers.AbstractItemImpl;
+import eu.dareed.eplus.parsers.AbstractIDFObjectImplementation;
 
 /**
  * @author <a href="mailto:kiril.tonev@kit.edu">Kiril Tonev</a>
  */
 public class ObjectBuilder {
-    protected final WritableIDFObject object;
+    protected final AbstractIDFObjectImplementation object;
 
-    public ObjectBuilder(String type) {
-        this.object = new WritableIDFObject(type);
+    public ObjectBuilder(int lineNumber, String type) {
+        this.object = new AbstractIDFObjectImplementation(lineNumber, type);
     }
 
     public void addValue(String rawValue) {
-        object.addField(new AbstractFieldImplementation(rawValue));
+        object.addField(rawValue);
     }
 
     public IDFObject getObject() {
         return object;
-    }
-
-    protected final class WritableIDFObject extends AbstractItemImpl implements IDFObject {
-        protected final String type;
-
-        public WritableIDFObject(String type) {
-            this.type = type;
-        }
-
-        @Override
-        public String getType() {
-            return type;
-        }
     }
 }

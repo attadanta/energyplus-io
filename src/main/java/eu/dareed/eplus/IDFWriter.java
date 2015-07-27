@@ -21,7 +21,7 @@ public class IDFWriter {
     }
 
     public ObjectBuilder buildObject(String type) {
-        ObjectBuilder objectBuilder = new ObjectBuilder(type);
+        ObjectBuilder objectBuilder = new ObjectBuilder(lastLineNumber(), type);
         this.objects.add(objectBuilder.object);
         return objectBuilder;
     }
@@ -31,7 +31,7 @@ public class IDFWriter {
     }
 
     public IDFObject createObject(String type, String[] values) {
-        ObjectBuilder objectBuilder = new ObjectBuilder(type);
+        ObjectBuilder objectBuilder = new ObjectBuilder(lastLineNumber(), type);
         for (String value : values) {
             objectBuilder.addValue(value);
         }
@@ -53,6 +53,15 @@ public class IDFWriter {
                 writer.write(fields.get(fields.size() - 1).getRawValue());
             }
             writer.write(";\n\n");
+        }
+    }
+
+    protected int lastLineNumber() {
+        if (objects.isEmpty()) {
+            return 1;
+        } else {
+            IDFObject lastObject = objects.get(objects.size() - 1);
+            return lastObject.getLineNumber() + lastObject.getFields().size() + 2;
         }
     }
 }

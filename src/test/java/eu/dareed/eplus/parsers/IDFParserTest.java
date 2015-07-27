@@ -58,6 +58,7 @@ public class IDFParserTest {
         Assert.assertEquals(2, actualItems.size());
         Assert.assertEquals("Version", actualItems.get(0).getType());
         Assert.assertEquals("SimulationControl", actualItems.get(1).getType());
-
+        Assert.assertEquals(9, actualItems.get(0).getLineNumber());
+        Assert.assertEquals(13, actualItems.get(1).getLineNumber());
     }
 }
