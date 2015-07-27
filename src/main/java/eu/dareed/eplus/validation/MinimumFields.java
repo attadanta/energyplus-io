@@ -5,7 +5,7 @@ import eu.dareed.eplus.model.idf.IDFObject;
 /**
  * @author <a href="mailto:kiril.tonev@kit.edu">Kiril Tonev</a>
  */
-class MinimumFields implements ValidityCheck {
+class MinimumFields implements ObjectLevelCheck {
     protected final int minimumFields;
     protected final IDFObject object;
 
@@ -22,5 +22,10 @@ class MinimumFields implements ValidityCheck {
     @Override
     public String renderOffence() {
         return "Object " + object.getType() + " should have at least " + minimumFields + " fields. It has " + object.getFields().size() + " instead.";
+    }
+
+    @Override
+    public int getLineNumber() {
+        return object.getLineNumber();
     }
 }

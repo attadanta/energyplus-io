@@ -1,9 +1,9 @@
 package eu.dareed.eplus.validation;
 
-import eu.dareed.eplus.model.Field;
 import eu.dareed.eplus.model.idd.Annotation;
 import eu.dareed.eplus.model.idd.IDDField;
 import eu.dareed.eplus.model.idf.IDF;
+import eu.dareed.eplus.model.idf.IDFField;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -15,23 +15,23 @@ import java.util.List;
 class FieldValidation {
     protected final IDF idf;
     protected final IDDField dictionaryField;
-    protected final Field field;
+    protected final IDFField field;
 
     /**
      * Default constructor.
      *
-     * @param idf the input IDF data.
+     * @param idf             the input IDF data.
      * @param dictionaryField the field in the data dictionary containing the value constraints.
      * @param objectField     the value to test.
      */
-    public FieldValidation(IDF idf, IDDField dictionaryField, Field objectField) {
+    public FieldValidation(IDF idf, IDDField dictionaryField, IDFField objectField) {
         this.idf = idf;
         this.dictionaryField = dictionaryField;
         this.field = objectField;
     }
 
-    public List<ValidityCheck> gatherValidityChecks() {
-        List<ValidityCheck> checks = new ArrayList<>();
+    public List<ObjectLevelCheck> gatherValidityChecks() {
+        List<ObjectLevelCheck> checks = new ArrayList<>();
         for (Annotation annotation : dictionaryField.getAnnotations()) {
             switch (annotation.name()) {
                 case "required-field":

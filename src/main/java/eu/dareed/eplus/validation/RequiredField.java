@@ -1,16 +1,16 @@
 package eu.dareed.eplus.validation;
 
-import eu.dareed.eplus.model.Field;
 import eu.dareed.eplus.model.idd.IDDField;
+import eu.dareed.eplus.model.idf.IDFField;
 
 /**
  * @author <a href="mailto:kiril.tonev@kit.edu">Kiril Tonev</a>
  */
-class RequiredField implements ValidityCheck {
+class RequiredField implements ObjectLevelCheck {
     protected final IDDField iddField;
-    protected final Field field;
+    protected final IDFField field;
 
-    public RequiredField(IDDField iddField, Field field) {
+    public RequiredField(IDDField iddField, IDFField field) {
         this.iddField = iddField;
         this.field = field;
     }
@@ -23,5 +23,10 @@ class RequiredField implements ValidityCheck {
     @Override
     public String renderOffence() {
         return "Field " + iddField.getName() + " is required and should not be blank.";
+    }
+
+    @Override
+    public int getLineNumber() {
+        return field.getLineNumber();
     }
 }

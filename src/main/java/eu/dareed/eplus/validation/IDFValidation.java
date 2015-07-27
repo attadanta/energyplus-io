@@ -30,7 +30,7 @@ public class IDFValidation {
 
             ObjectValidation validation;
             if (dataDictionaryObject == null) {
-                validation = new FailingValidation(idf, idfObject, new UnknownObjectType(idfObject.getType()));
+                validation = new FailingValidation(idf, idfObject, new UnknownObjectType(idfObject));
             } else {
                 validation = new ObjectValidation(idf, dataDictionaryObject, idfObject);
             }

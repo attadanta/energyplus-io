@@ -1,10 +1,10 @@
 package eu.dareed.eplus.validation;
 
-import eu.dareed.eplus.model.Field;
 import eu.dareed.eplus.model.idd.Annotation;
 import eu.dareed.eplus.model.idd.IDDField;
 import eu.dareed.eplus.model.idd.IDDObject;
 import eu.dareed.eplus.model.idf.IDF;
+import eu.dareed.eplus.model.idf.IDFField;
 import eu.dareed.eplus.model.idf.IDFObject;
 
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ class ObjectValidation {
 
     protected List<FieldValidation> initializeFieldValidations() {
         List<IDDField> dataDictionaryObjectFields = dataDictionaryObject.getFields();
-        List<? extends Field> idfObjectFields = idfObject.getFields();
+        List<IDFField> idfObjectFields = idfObject.getFields();
 
         int commonFields = Math.min(dataDictionaryObjectFields.size(), idfObjectFields.size());
         List<FieldValidation> result = new ArrayList<>(commonFields);

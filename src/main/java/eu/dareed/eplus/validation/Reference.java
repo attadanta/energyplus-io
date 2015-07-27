@@ -1,18 +1,18 @@
 package eu.dareed.eplus.validation;
 
-import eu.dareed.eplus.model.Field;
 import eu.dareed.eplus.model.idd.IDDField;
 import eu.dareed.eplus.model.idf.IDF;
+import eu.dareed.eplus.model.idf.IDFField;
 
 /**
  * @author <a href="mailto:kiril.tonev@kit.edu">Kiril Tonev</a>
  */
-class Reference implements ValidityCheck {
+class Reference implements ObjectLevelCheck {
     protected final IDDField iddField;
-    protected final Field field;
+    protected final IDFField field;
     protected final IDF idf;
 
-    public Reference(IDDField dictionaryField, Field field, IDF idf) {
+    public Reference(IDDField dictionaryField, IDFField field, IDF idf) {
         this.iddField = dictionaryField;
         this.field = field;
         this.idf = idf;
@@ -28,5 +28,10 @@ class Reference implements ValidityCheck {
         return "Field " + iddField.getName()
                 + " should contain a reference to an existing object. No object with name "
                 + field.getRawValue() + " was found in the IDF file.";
+    }
+
+    @Override
+    public int getLineNumber() {
+        return field.getLineNumber();
     }
 }

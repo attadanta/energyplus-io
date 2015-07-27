@@ -1,13 +1,15 @@
 package eu.dareed.eplus.validation;
 
+import eu.dareed.eplus.model.idf.IDFObject;
+
 /**
  * @author <a href="mailto:kiril.tonev@kit.edu">Kiril Tonev</a>
  */
-class UnknownObjectType implements ValidityCheck {
-    protected final String objectType;
+class UnknownObjectType implements ObjectLevelCheck {
+    protected final IDFObject object;
 
-    public UnknownObjectType(String objectType) {
-        this.objectType = objectType;
+    public UnknownObjectType(IDFObject object) {
+        this.object = object;
     }
 
     @Override
@@ -17,6 +19,11 @@ class UnknownObjectType implements ValidityCheck {
 
     @Override
     public String renderOffence() {
-        return "Unknown object type: " + objectType + ".";
+        return "Unknown object type: " + object.getType() + ".";
+    }
+
+    @Override
+    public int getLineNumber() {
+        return object.getLineNumber();
     }
 }

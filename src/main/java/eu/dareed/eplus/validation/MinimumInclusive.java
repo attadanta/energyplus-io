@@ -1,17 +1,17 @@
 package eu.dareed.eplus.validation;
 
-import eu.dareed.eplus.model.Field;
 import eu.dareed.eplus.model.idd.IDDField;
+import eu.dareed.eplus.model.idf.IDFField;
 
 /**
  * @author <a href="mailto:kiril.tonev@kit.edu">Kiril Tonev</a>
  */
-class MinimumInclusive implements ValidityCheck {
+class MinimumInclusive implements ObjectLevelCheck {
     protected final double referenceValue;
     protected final IDDField iddField;
-    protected final Field field;
+    protected final IDFField field;
 
-    MinimumInclusive(double referenceValue, IDDField iddField, Field field) {
+    MinimumInclusive(double referenceValue, IDDField iddField, IDFField field) {
         this.referenceValue = referenceValue;
         this.iddField = iddField;
         this.field = field;
@@ -32,5 +32,10 @@ class MinimumInclusive implements ValidityCheck {
                 + " should be greater than "
                 + Double.toString(referenceValue)
                 + ". It is " + field.getRawValue() + " instead.";
+    }
+
+    @Override
+    public int getLineNumber() {
+        return field.getLineNumber();
     }
 }
