@@ -62,7 +62,7 @@ class FieldValidation {
                             checks.add(new RealNumberCheck(dictionaryField, field));
                             break;
                         case "choice":
-                            checks.add(new Choice(dictionaryField, field, collectKeys(dictionaryField.getAnnotations())));
+                            checks.add(new Choice(dictionaryField, field, collectKeys(dictionaryField)));
                             break;
                     }
             }
@@ -70,11 +70,18 @@ class FieldValidation {
         return checks;
     }
 
-    private Collection<String> collectKeys(List<Annotation> annotations) {
+    private Collection<String> collectKeys(IDDField dictionaryField) {
         List<String> result = new ArrayList<>();
-        for (Annotation annotation : annotations) {
+        boolean retainCase = dictionaryField.isSet("retaincase");
+
+        for (Annotation annotation : dictionaryField.getAnnotations()) {
             if (annotation.name().equals("key")) {
-                result.add(annotation.asParameter().value());
+                String value = annotation.asParameter().value();
+                if (retainCase) {
+                    result.add(value);
+                } else {
+                    result.add(value.toLowerCase());
+                }
             }
         }
         return result;

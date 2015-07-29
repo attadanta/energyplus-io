@@ -64,7 +64,7 @@ public class ObjectValidationTest {
         ObjectValidation objectValidation = new ObjectValidation(writer.getIDF(), building, object);
         List<FieldValidation> pairs = objectValidation.initializeFieldValidations();
 
-        List<ValidityCheck> northFieldChecks = pairs.get(1).gatherValidityChecks();
+        List<ObjectLevelCheck> northFieldChecks = pairs.get(1).gatherValidityChecks();
         Assert.assertEquals(1, northFieldChecks.size());
         Assert.assertEquals(RealNumberCheck.class, northFieldChecks.get(0).getClass());
         Assert.assertTrue(northFieldChecks.get(0).performCheck());
@@ -84,7 +84,7 @@ public class ObjectValidationTest {
         ObjectValidation objectValidation = new ObjectValidation(writer.getIDF(), building, object);
         List<FieldValidation> pairs = objectValidation.initializeFieldValidations();
 
-        List<ValidityCheck> terrainChecks = pairs.get(2).gatherValidityChecks();
+        List<ObjectLevelCheck> terrainChecks = pairs.get(2).gatherValidityChecks();
         Assert.assertEquals(1, terrainChecks.size());
         Assert.assertEquals(Choice.class, terrainChecks.get(0).getClass());
         Assert.assertTrue(terrainChecks.get(0).performCheck());
@@ -104,7 +104,7 @@ public class ObjectValidationTest {
         ObjectValidation objectValidation = new ObjectValidation(writer.getIDF(), building, object);
         List<FieldValidation> pairs = objectValidation.initializeFieldValidations();
 
-        List<ValidityCheck> convergenceChecks = pairs.get(3).gatherValidityChecks();
+        List<ObjectLevelCheck> convergenceChecks = pairs.get(3).gatherValidityChecks();
         Assert.assertEquals(3, convergenceChecks.size());
         Assert.assertEquals(RealNumberCheck.class, convergenceChecks.get(0).getClass());
         Assert.assertTrue(convergenceChecks.get(0).performCheck());
