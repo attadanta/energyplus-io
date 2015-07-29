@@ -17,7 +17,11 @@ class RealNumberCheck implements ObjectLevelCheck {
 
     @Override
     public boolean performCheck() {
-        return checkNumericalValue() || checkAutocalculable();
+        return checkBlankField() || checkNumericalValue() || checkAutocalculable();
+    }
+
+    private boolean checkBlankField() {
+        return field.getRawValue().trim().isEmpty() && !iddField.isSet("required-field");
     }
 
     protected boolean checkNumericalValue() {

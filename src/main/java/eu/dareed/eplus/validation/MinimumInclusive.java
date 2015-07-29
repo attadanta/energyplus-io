@@ -20,7 +20,7 @@ class MinimumInclusive implements ObjectLevelCheck {
     @Override
     public boolean performCheck() {
         try {
-            return field.doubleValue() >= referenceValue;
+            return checkBlankField() || field.doubleValue() >= referenceValue;
         } catch (NumberFormatException e) {
             return false;
         }
@@ -37,5 +37,9 @@ class MinimumInclusive implements ObjectLevelCheck {
     @Override
     public int getLineNumber() {
         return field.getLineNumber();
+    }
+
+    private boolean checkBlankField() {
+        return field.getRawValue().trim().isEmpty() && !iddField.isSet("required-field");
     }
 }

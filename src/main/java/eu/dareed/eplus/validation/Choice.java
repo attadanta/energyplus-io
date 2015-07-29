@@ -25,6 +25,10 @@ class Choice implements ObjectLevelCheck {
 
     @Override
     public boolean performCheck() {
+        if (field.getRawValue().trim().isEmpty()) {
+            return !iddField.isSet("required-field");
+        }
+
         String stringValue = field.stringValue();
         if (iddField.isSet("retaincase")) {
             return choices.contains(stringValue);
