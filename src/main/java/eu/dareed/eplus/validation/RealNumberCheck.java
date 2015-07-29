@@ -35,7 +35,8 @@ class RealNumberCheck implements ObjectLevelCheck {
 
     @Override
     public String renderOffence() {
-        return "Field " + iddField.getName() + " should be a real number. It is " + field.getRawValue() + " instead.";
+        return "Field " + iddField.getName() + " should be a real number. It is "
+                + (field.getRawValue().trim().isEmpty() ? "blank" : field.getRawValue()) + " instead.";
     }
 
     @Override

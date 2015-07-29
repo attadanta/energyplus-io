@@ -35,7 +35,7 @@ class IntegerCheck implements ObjectLevelCheck {
 
     @Override
     public String renderOffence() {
-        return "Field " + iddField.getName() + " should be an integer. It is " + field.getRawValue() + " instead.";
+        return "Field " + iddField.getName() + " should be an integer. It is " + (field.getRawValue().isEmpty() ? "blank" : field.getRawValue()) + " instead.";
     }
 
     @Override

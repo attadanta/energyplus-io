@@ -26,8 +26,9 @@ class Reference implements ObjectLevelCheck {
     @Override
     public String renderOffence() {
         return "Field " + iddField.getName()
-                + " should contain a reference to an existing object. No object with name "
-                + field.getRawValue() + " was found in the IDF file.";
+                + " should contain a reference to an existing object. "
+                + (field.getRawValue().trim().isEmpty() ? "It was blank instead." : "No object with name "
+                + field.getRawValue() + " was found in the IDF file.");
     }
 
     @Override

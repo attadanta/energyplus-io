@@ -28,7 +28,8 @@ class Maximum implements ObjectLevelCheck {
 
     @Override
     public String renderOffence() {
-        return "Field " + iddField.getName() + " should be less than " + Double.toString(referenceValue) + ". It is " + field.getRawValue() + " instead.";
+        return "Field " + iddField.getName() + " should be less than " + Double.toString(referenceValue)
+                + ". It is " + (field.getRawValue().trim().isEmpty() ? "blank" : field.getRawValue()) + " instead.";
     }
 
     @Override

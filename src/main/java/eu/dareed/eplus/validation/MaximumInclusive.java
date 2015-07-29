@@ -31,7 +31,7 @@ class MaximumInclusive implements ObjectLevelCheck {
         return "Field " + iddField.getName()
                 + " should be less than or equal to "
                 + Double.toString(referenceValue)
-                + ". It is " + field.getRawValue() + " instead.";
+                + ". It is " + (field.getRawValue().trim().isEmpty() ? "blank" : field.getRawValue()) + " instead.";
     }
 
     @Override

@@ -31,7 +31,7 @@ class Minimum implements ObjectLevelCheck {
         return "Field " + iddField.getName()
                 + " should be greater than or equal "
                 + Double.toString(referenceValue)
-                + ". It is " + field.getRawValue() + " instead.";
+                + ". It is " + (field.getRawValue().trim().isEmpty() ? "blank" : field.getRawValue()) + " instead.";
     }
 
     @Override
