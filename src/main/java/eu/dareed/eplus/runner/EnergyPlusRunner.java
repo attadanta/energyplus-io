@@ -17,6 +17,10 @@ public class EnergyPlusRunner {
         this.arguments = arguments;
     }
 
+    public OutputDirectory getOutputs() {
+        return new OutputDirectory(arguments);
+    }
+
     public boolean canExecute() {
         return energyPlusPath.exists() && energyPlusPath.canExecute();
     }
