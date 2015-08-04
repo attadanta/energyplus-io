@@ -86,8 +86,8 @@ public class ESO extends Token {
     }
 
     private void processDataItem(Line line) {
-        if (outputsStack.offer(line)) {
-            ScheduledOutput currentOutput = outputsStack.getCurrentOutput();
+        if (outputsStack.place(line)) {
+            Outputs currentOutput = outputsStack.getCurrentOutput();
 
             line.setScheduledOutput(currentOutput);
             currentOutput.addItem(line);

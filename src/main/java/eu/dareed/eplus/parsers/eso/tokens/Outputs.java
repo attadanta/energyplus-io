@@ -7,16 +7,19 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ * This class represents a collection of data points. Each object may be linked with its parents (in the case of
+ * environments), siblings and children.
+ *
  * @author <a href="mailto:kiril.tonev@kit.edu">Kiril Tonev</a>
  */
-public class ScheduledOutput {
-    protected final List<ScheduledOutput> children;
+public class Outputs {
+    protected final List<Outputs> children;
     protected final List<Line> items;
     protected Line line;
-    protected ScheduledOutput parent;
-    protected ScheduledOutput sibling;
+    protected Outputs parent;
+    protected Outputs sibling;
 
-    public ScheduledOutput() {
+    public Outputs() {
         this.children = new ArrayList<>();
         this.items = new ArrayList<>();
     }
@@ -29,21 +32,33 @@ public class ScheduledOutput {
         this.line = line;
     }
 
-    public ScheduledOutput getSibling() {
+    /**
+     * Returns the outputs group which appears immediately after this group.
+     *
+     * @return the consequent outputs group.
+     */
+    public Outputs getSibling() {
         return sibling;
     }
 
-    public void setSibling(ScheduledOutput sibling) {
+    /**
+     * Sets the outputs group which appears immediately after this group.
+     *
+     * @param sibling the consequent outputs group.
+     */
+    public void setSibling(Outputs sibling) {
         this.sibling = sibling;
     }
 
-    public ScheduledOutput getParent() {
+    public Outputs getParent() {
         return parent;
     }
 
-    public void setParent(ScheduledOutput parent) {
+    public void setParent(Outputs parent) {
         this.parent = parent;
-        parent.children.add(this);
+        if (parent != null) {
+            parent.children.add(this);
+        }
     }
 
     public int controlNumber() {
@@ -51,7 +66,7 @@ public class ScheduledOutput {
         return Integer.parseInt(token.getContents());
     }
 
-    public List<ScheduledOutput> getChildren() {
+    public List<Outputs> getChildren() {
         return Collections.unmodifiableList(children);
     }
 
@@ -65,6 +80,6 @@ public class ScheduledOutput {
 
     @Override
     public String toString() {
-        return "ScheduledOutput{ " + controlNumber() + ", " + line.getChildren().get(1).getContents() + " }";
+        return "Outputs{ " + controlNumber() + ", " + line.getChildren().get(1).getContents() + " }";
     }
 }

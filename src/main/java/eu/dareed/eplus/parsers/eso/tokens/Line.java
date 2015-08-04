@@ -10,18 +10,18 @@ import eu.dareed.eplus.parsers.Token;
 public class Line extends Token {
 
     protected final ESO eso;
-    protected ScheduledOutput scheduledOutput;
+    protected Outputs scheduledOutput;
 
     public Line(Context context, ESO eso) {
         super(context);
         this.eso = eso;
     }
 
-    public ScheduledOutput getScheduledOutput() {
+    public Outputs getScheduledOutput() {
         return scheduledOutput;
     }
 
-    public void setScheduledOutput(ScheduledOutput scheduledOutput) {
+    public void setScheduledOutput(Outputs scheduledOutput) {
         this.scheduledOutput = scheduledOutput;
     }
 

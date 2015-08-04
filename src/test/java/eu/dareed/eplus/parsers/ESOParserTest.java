@@ -2,8 +2,8 @@ package eu.dareed.eplus.parsers;
 
 import eu.dareed.eplus.model.eso.ESO;
 import eu.dareed.eplus.parsers.eso.ESOParser;
+import eu.dareed.eplus.parsers.eso.tokens.Outputs;
 import eu.dareed.eplus.parsers.eso.tokens.OutputsStack;
-import eu.dareed.eplus.parsers.eso.tokens.ScheduledOutput;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
@@ -39,6 +39,9 @@ public class ESOParserTest {
                 "2,1, 1,21, 0, 1, 0.00,60.00,WinterDesignDay",
                 "6,-18.1",
                 "7,0.0",
+                "2,1, 1,21, 0, 1, 0.00,60.00,WinterDesignDay",
+                "6,-18.1",
+                "7,0.0",
                 "End of Data",
                 " Number of Records Written=        2352");
 
@@ -51,25 +54,44 @@ public class ESOParserTest {
         ESO eso = new ESOParser().parseFile(in);
         Assert.assertEquals("Program Version", eso.getVersionStatement().getField(0).stringValue());
         Assert.assertEquals(5, eso.getDataDictionary().size());
-        Assert.assertEquals(8, eso.getData().size());
+        Assert.assertEquals(11, eso.getData().size());
 
         Assert.assertEquals(1, eso.getData().get(0).getFields().get(0).integerValue());
         Assert.assertEquals(2, eso.getData().get(1).getFields().get(0).integerValue());
     }
 
     @Test
-    public void testScheduledOutputs() throws IOException {
+    public void testOutputRoots() throws IOException {
         eu.dareed.eplus.parsers.eso.tokens.ESO rootToken = new ESOParser().parse(in);
         OutputsStack queue = rootToken.getOutputsStack();
 
-        List<ScheduledOutput> roots = queue.getRoots();
+        List<Outputs> roots = queue.getRoots();
         Assert.assertEquals(2, roots.size());
 
-        ScheduledOutput output = roots.get(0);
+        Outputs output = roots.get(0);
         Assert.assertEquals(1, output.controlNumber());
         Assert.assertNotNull(output.getSibling());
         Assert.assertNull(output.getParent());
         Assert.assertEquals(1, output.getChildren().size());
         Assert.assertNotNull(output.getChildren().get(0).getParent());
+    }
+
+    @Test
+    public void testOutputLeaves() throws IOException {
+        eu.dareed.eplus.parsers.eso.tokens.ESO rootToken = new ESOParser().parse(in);
+        OutputsStack queue = rootToken.getOutputsStack();
+
+        List<Outputs> leaves = queue.leaves();
+        Assert.assertEquals(3, leaves.size());
+
+        Outputs firstLeaf = leaves.get(0);
+        Assert.assertEquals(2, firstLeaf.controlNumber());
+        Assert.assertEquals(0, firstLeaf.getChildren().size());
+        Assert.assertNotNull(firstLeaf.getParent());
+        Assert.assertNull(firstLeaf.getSibling());
+
+        Outputs secondLeaf = leaves.get(1);
+        Assert.assertNotNull(secondLeaf.getSibling());
+        Assert.assertEquals(2, secondLeaf.controlNumber());
     }
 }
