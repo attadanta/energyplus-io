@@ -1,7 +1,9 @@
 package eu.dareed.eplus.parsers.eso;
 
 import eu.dareed.eplus.model.Item;
+import eu.dareed.eplus.model.eso.ESOItem;
 import eu.dareed.eplus.parsers.AbstractItemImpl;
+import eu.dareed.eplus.parsers.ESOItemImpl;
 import eu.dareed.eplus.parsers.FileParser;
 import eu.dareed.eplus.parsers.Token;
 import eu.dareed.eplus.parsers.eso.tokens.ESO;
@@ -26,17 +28,20 @@ public class ESOParser extends FileParser<ESO, eu.dareed.eplus.model.eso.ESO> {
     protected eu.dareed.eplus.model.eso.ESO processParseTree() {
         ESO rootToken = this.rootToken;
         ESOImpl eso = new ESOImpl(processVersionStatement(rootToken.getVersionStatement()));
-        Map<Integer, Item> dataMap = new HashMap<>();
+        Map<Integer, ESOItem> dataMap = new HashMap<>();
+        Map<Integer, Item> dictionaryMap = new HashMap<>();
 
         for (Token token : rootToken.getDataDictionary()) {
-            AbstractItemImpl item = new AbstractItemImpl();
-            item.addAllFields(asFields(token.getChildren()));
-            eso.addDataDictionaryItem(item);
+            AbstractItemImpl dataDictionaryItem = new AbstractItemImpl();
+            dataDictionaryItem.addAllFields(asFields(token.getChildren()));
+            eso.addDataDictionaryItem(dataDictionaryItem);
+            dictionaryMap.put(dataDictionaryItem.getField(0).integerValue(), dataDictionaryItem);
         }
 
         for (Token token : rootToken.getData()) {
-            AbstractItemImpl item = new AbstractItemImpl();
+            ESOItemImpl item = new ESOItemImpl();
             item.addAllFields(asFields(token.getChildren()));
+            item.setDataDictionaryItem(dictionaryMap.get(item.getField(0).integerValue()));
             eso.addDataItem(item);
             dataMap.put(token.getContext().getLineNumber(), item);
         }
@@ -52,7 +57,9 @@ public class ESOParser extends FileParser<ESO, eu.dareed.eplus.model.eso.ESO> {
             List<Item> environment = new ArrayList<>();
             Outputs parent = outputs.getParent();
             while (parent != null) {
-                environment.add(dataMap.get(parent.getLine().getContext().getLineNumber()));
+                Item item = dataMap.get(parent.getLine().getContext().getLineNumber());
+                environment.add(item);
+                parent = parent.getParent();
             }
 
             dataPoints.setEnvironment(environment);

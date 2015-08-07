@@ -1,6 +1,8 @@
 package eu.dareed.eplus.parsers;
 
+import eu.dareed.eplus.model.Item;
 import eu.dareed.eplus.model.eso.ESO;
+import eu.dareed.eplus.model.eso.ESOItem;
 import eu.dareed.eplus.parsers.eso.ESOParser;
 import eu.dareed.eplus.parsers.eso.tokens.Outputs;
 import eu.dareed.eplus.parsers.eso.tokens.OutputsStack;
@@ -93,5 +95,14 @@ public class ESOParserTest {
         Outputs secondLeaf = leaves.get(1);
         Assert.assertNotNull(secondLeaf.getSibling());
         Assert.assertEquals(2, secondLeaf.controlNumber());
+    }
+
+    @Test
+    public void testDataDictionaryItem() throws IOException {
+        ESO eso = new ESOParser().parseFile(in);
+        ESOItem esoItem = eso.getData().get(0);
+        Item dictionaryItem = esoItem.getDictionaryItem();
+        Assert.assertNotNull(dictionaryItem);
+        Assert.assertEquals(esoItem.getField(0).integerValue(), dictionaryItem.getField(0).integerValue());
     }
 }

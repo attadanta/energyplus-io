@@ -27,7 +27,7 @@ public interface ESO {
      *
      * @return a list of lines appearing after the "End of Data Dictionary" statement of the output.
      */
-    List<Item> getData();
+    List<ESOItem> getData();
 
     /**
      * Returns a list of output groups.

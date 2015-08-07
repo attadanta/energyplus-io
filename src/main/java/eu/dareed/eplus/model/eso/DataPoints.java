@@ -12,7 +12,7 @@ import java.util.List;
 public interface DataPoints {
     Item getItem();
 
-    List<Item> getData();
+    List<ESOItem> getData();
 
     List<Item> getEnvironment();
 }

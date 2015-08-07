@@ -3,7 +3,7 @@ package eu.dareed.eplus.model;
 import java.util.List;
 
 /**
- * An item is an object that contains multiple items.
+ * An item is an object that contains an array of fields.
  *
  * @author <a href="mailto:kiril.tonev@kit.edu">Kiril Tonev</a>
  */

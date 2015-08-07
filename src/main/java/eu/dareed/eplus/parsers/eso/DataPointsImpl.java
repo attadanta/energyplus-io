@@ -2,6 +2,7 @@ package eu.dareed.eplus.parsers.eso;
 
 import eu.dareed.eplus.model.Item;
 import eu.dareed.eplus.model.eso.DataPoints;
+import eu.dareed.eplus.model.eso.ESOItem;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,7 +14,7 @@ import java.util.List;
 class DataPointsImpl implements DataPoints {
 
     protected final Item item;
-    protected final List<Item> data;
+    protected final List<ESOItem> data;
     protected List<Item> environment;
 
     public DataPointsImpl(Item item) {
@@ -27,7 +28,7 @@ class DataPointsImpl implements DataPoints {
     }
 
     @Override
-    public List<Item> getData() {
+    public List<ESOItem> getData() {
         return Collections.unmodifiableList(data);
     }
 
@@ -40,7 +41,7 @@ class DataPointsImpl implements DataPoints {
         this.environment = environment;
     }
 
-    protected boolean addDataItem(Item item) {
+    protected boolean addDataItem(ESOItem item) {
         return this.data.add(item);
     }
 }

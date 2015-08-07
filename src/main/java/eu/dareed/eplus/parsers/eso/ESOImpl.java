@@ -3,6 +3,7 @@ package eu.dareed.eplus.parsers.eso;
 import eu.dareed.eplus.model.Item;
 import eu.dareed.eplus.model.eso.DataPoints;
 import eu.dareed.eplus.model.eso.ESO;
+import eu.dareed.eplus.model.eso.ESOItem;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,7 +16,7 @@ import java.util.List;
 class ESOImpl implements ESO {
 
     protected final List<Item> dataDictionary;
-    protected final List<Item> data;
+    protected final List<ESOItem> data;
     protected final List<DataPoints> dataPointsList;
     protected Item versionStatement;
 
@@ -47,7 +48,7 @@ class ESOImpl implements ESO {
     }
 
     @Override
-    public List<Item> getData() {
+    public List<ESOItem> getData() {
         return Collections.unmodifiableList(data);
     }
 
@@ -59,7 +60,7 @@ class ESOImpl implements ESO {
         this.dataPointsList.add(dataPoints);
     }
 
-    protected boolean addDataItem(Item item) {
+    protected boolean addDataItem(ESOItem item) {
         return data.add(item);
     }
 }
