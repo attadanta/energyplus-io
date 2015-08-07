@@ -14,5 +14,5 @@ public interface DataPoints {
 
     List<ESOItem> getData();
 
-    List<Item> getEnvironment();
+    List<ESOItem> getEnvironment();
 }

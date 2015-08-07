@@ -15,7 +15,7 @@ class DataPointsImpl implements DataPoints {
 
     protected final Item item;
     protected final List<ESOItem> data;
-    protected List<Item> environment;
+    protected List<ESOItem> environment;
 
     public DataPointsImpl(Item item) {
         this.item = item;
@@ -33,11 +33,11 @@ class DataPointsImpl implements DataPoints {
     }
 
     @Override
-    public List<Item> getEnvironment() {
+    public List<ESOItem> getEnvironment() {
         return environment;
     }
 
-    public void setEnvironment(List<Item> environment) {
+    public void setEnvironment(List<ESOItem> environment) {
         this.environment = environment;
     }
 

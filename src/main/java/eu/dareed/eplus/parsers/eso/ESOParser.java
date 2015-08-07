@@ -54,10 +54,10 @@ public class ESOParser extends FileParser<ESO, eu.dareed.eplus.model.eso.ESO> {
                 dataPoints.addDataItem(dataMap.get(line.getContext().getLineNumber()));
             }
 
-            List<Item> environment = new ArrayList<>();
+            List<ESOItem> environment = new ArrayList<>();
             Outputs parent = outputs.getParent();
             while (parent != null) {
-                Item item = dataMap.get(parent.getLine().getContext().getLineNumber());
+                ESOItem item = dataMap.get(parent.getLine().getContext().getLineNumber());
                 environment.add(item);
                 parent = parent.getParent();
             }
