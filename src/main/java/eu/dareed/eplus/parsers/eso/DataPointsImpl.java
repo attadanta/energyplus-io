@@ -4,9 +4,7 @@ import eu.dareed.eplus.model.Item;
 import eu.dareed.eplus.model.eso.DataPoints;
 import eu.dareed.eplus.model.eso.ESOItem;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author <a href="mailto:kiril.tonev@kit.edu">Kiril Tonev</a>
@@ -14,12 +12,12 @@ import java.util.List;
 class DataPointsImpl implements DataPoints {
 
     protected final Item item;
-    protected final List<ESOItem> data;
+    protected final Map<Integer, ESOItem> data;
     protected List<ESOItem> environment;
 
     public DataPointsImpl(Item item) {
         this.item = item;
-        this.data = new ArrayList<>();
+        this.data = new LinkedHashMap<>();
     }
 
     @Override
@@ -29,7 +27,19 @@ class DataPointsImpl implements DataPoints {
 
     @Override
     public List<ESOItem> getData() {
-        return Collections.unmodifiableList(data);
+        Collection<ESOItem> data = this.data.values();
+
+        List<ESOItem> result = new ArrayList<>(data.size());
+        for (ESOItem item : data) {
+            result.add(item);
+        }
+
+        return result;
+    }
+
+    @Override
+    public ESOItem getValue(int reportCode) {
+        return data.get(reportCode);
     }
 
     @Override
@@ -41,7 +51,7 @@ class DataPointsImpl implements DataPoints {
         this.environment = environment;
     }
 
-    protected boolean addDataItem(ESOItem item) {
-        return this.data.add(item);
+    protected ESOItem addDataItem(ESOItem item) {
+        return this.data.put(item.getField(0).integerValue(), item);
     }
 }

@@ -4,6 +4,8 @@ import java.io.File;
 import java.nio.file.Paths;
 
 /**
+ * Provides quick access to the simulation outputs.
+ *
  * @author <a href="mailto:kiril.tonev@kit.edu">Kiril Tonev</a>
  */
 public class OutputDirectory {
@@ -16,7 +18,7 @@ public class OutputDirectory {
     }
 
     /**
-     * Returns the eso file in the current working directory.
+     * Returns the eso file in this working directory.
      *
      * @return a reference to the eso file as computed by the energy plus arguments.
      */
