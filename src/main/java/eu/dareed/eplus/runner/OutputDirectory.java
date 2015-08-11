@@ -25,6 +25,10 @@ public class OutputDirectory {
         this.inputFile = arguments.getInputFile();
     }
 
+    public File getDirectory() {
+        return directory;
+    }
+
     /**
      * Returns the eso file in this working directory.
      *
