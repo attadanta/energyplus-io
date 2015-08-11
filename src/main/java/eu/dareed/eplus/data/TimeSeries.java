@@ -21,6 +21,10 @@ public class TimeSeries {
         this.measurements = new ArrayList<>();
     }
 
+    public Item getVariable() {
+        return variable;
+    }
+
     public String getEnvironmentName() {
         return environment.getField(1).stringValue();
     }
