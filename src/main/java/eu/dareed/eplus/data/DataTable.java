@@ -63,8 +63,8 @@ public class DataTable {
                     time.set(Calendar.MONTH, pointsDescriptor.getField(2).integerValue() - 1);
                     time.set(Calendar.DAY_OF_MONTH, pointsDescriptor.getField(3).integerValue());
                     time.set(Calendar.YEAR, year);
-                    time.set(Calendar.HOUR_OF_DAY, pointsDescriptor.getField(5).integerValue());
-                    time.set(Calendar.MINUTE, pointsDescriptor.getField(6).integerValue());
+                    time.set(Calendar.HOUR_OF_DAY, pointsDescriptor.getField(4).integerValue());
+                    time.set(Calendar.MINUTE, pointsDescriptor.getField(5).integerValue());
 
                     Measurement measurement = new Measurement(time, value.getField(1).doubleValue());
                     series.addMeasurement(measurement);
