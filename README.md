@@ -1,6 +1,6 @@
 # EnergyPlus API
 
-The main entry points the library are the parsers.
+The main entry points to the library are the parsers.
 
 ## Data Dictionary
 
@@ -29,3 +29,7 @@ ESO eso = new ESOParser().parseFile(in);
 Objects in those files are represented by `Item`s. Each `Item` has a list of
 `Field`s. Specialisations of the `Field` interface provide further accessors,
 e.g. field annotations in the case of ESO items.
+
+# Official Documentation
+
+[Interface Developers' Guide](https://nrel.github.io/EnergyPlus/InterfaceDeveloper/InterfaceDeveloper/)
