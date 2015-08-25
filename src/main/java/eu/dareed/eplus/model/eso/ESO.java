@@ -32,7 +32,7 @@ public interface ESO {
     /**
      * Returns a list of output groups.
      *
-     * @return
+     * @return a list of {@link DataPoints} representing the output intervals in the simulation output.
      */
     List<DataPoints> getDataPoints();
 }
