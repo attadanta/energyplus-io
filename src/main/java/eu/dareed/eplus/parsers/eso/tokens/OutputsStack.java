@@ -85,30 +85,37 @@ public class OutputsStack {
      */
     protected void enqueue(Outputs output) {
         if (stack.isEmpty()) {
+            assert output.controlNumber() == 1;
+
             stack.addFirst(output);
             roots.add(output);
             return;
         }
 
-        if (output.controlNumber() < stack.peekFirst().controlNumber()) {
+        if (output.controlNumber() == 1) {
             do {
                 stack.removeFirst();
-            } while (!stack.isEmpty() && output.controlNumber() < stack.peekFirst().controlNumber());
+            } while (!stack.isEmpty() && stack.peekFirst().controlNumber() > 1);
             if (!stack.isEmpty()) {
                 Outputs lastOutput = stack.removeFirst();
-                output.setParent(lastOutput.getParent());
                 lastOutput.setSibling(output);
             }
             if (stack.isEmpty()) {
                 roots.add(output);
             }
-            stack.addFirst(output);
-        } else if (output.controlNumber() == stack.peekFirst().controlNumber()) {
-            stack.removeFirst().setSibling(currentOutput);
-            output.setParent(currentOutput.getParent());
+
             stack.addFirst(output);
         } else {
-            output.setParent(stack.peekFirst());
+            if (stack.peekFirst().controlNumber() == 1) {
+                output.setParent(stack.peekFirst());
+            } else {
+                Outputs sibling = stack.removeFirst();
+                sibling.setSibling(output);
+
+                assert !stack.isEmpty() && stack.peekFirst().controlNumber() == 1;
+                output.setParent(stack.peekFirst());
+            }
+
             stack.addFirst(output);
         }
 
