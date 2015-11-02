@@ -41,7 +41,7 @@ class IDDObjectImpl implements IDDObject {
             memo.add(parameter.value());
         }
 
-        return StringUtils.join(memo, "");
+        return StringUtils.join(memo, " ");
     }
 
     @Override

@@ -23,6 +23,10 @@ public class IDDObject extends Token {
                 }
                 stack.push(comment);
                 break;
+            case '!':
+                IgnoreComment ignoreComment = new IgnoreComment(context);
+                stack.push(ignoreComment);
+                break;
             case '\t':
                 break;
             case '\n':
