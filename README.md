@@ -1,6 +1,11 @@
 # EnergyPlus API
 
-The main entry points to the library are the parsers.
+This library provides convenient programmatic access to EnergyPlus IO data
+formats for the Java language. The coverage spans the data dictionary (`.idd`),
+energy input (`.idf`) and energy output (`.eso`) formats.
+
+The main entry points to the library are the parsers. The following sections
+provide usage examples.
 
 ## Data Dictionary
 
@@ -26,9 +31,17 @@ InputStream in = new FileInputStream(file);
 ESO eso = new ESOParser().parseFile(in);
 ```
 
-Objects in those files are represented by `Item`s. Each `Item` has a list of
-`Field`s. Specialisations of the `Field` interface provide further accessors,
+# Data Model
+
+Lines in the EPlus files are represented by `Item`s. Each `Item` has a list of
+`Field`s. Specializations of the `Field` interface provide further accessors,
 e.g. field annotations in the case of ESO items.
+
+The EnergyPlus output format can be explored with a `DataTable` instance. Once
+initialized, it exposes `TimeSeries` for each variable in the output. Each time
+series is associated with the environment the variable is reported in and
+contains a list of `Measurement`s. See the package `data` for more information
+on ESO postprocessing.
 
 # Official Documentation
 
