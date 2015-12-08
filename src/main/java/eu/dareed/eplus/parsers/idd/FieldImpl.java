@@ -40,6 +40,11 @@ class FieldImpl implements IDDField {
     }
 
     @Override
+    public Parameter getParameter(String name) {
+        return annotations.getParameter(name);
+    }
+
+    @Override
     public boolean isSet(String commentName) {
         return annotations.isSet(commentName);
     }

@@ -42,11 +42,25 @@ public class AnnotationsContainer implements AnnotatedObject {
 
         for (Annotation annotation : annotations) {
             if (annotation.isParameter() && annotation.name().equals(name)) {
-                result.add((Parameter) annotation);
+                result.add(annotation.asParameter());
             }
         }
 
         return result;
+    }
+
+    @Override
+    public Parameter getParameter(String name) {
+        Parameter parameter = null;
+        boolean found = false;
+        for (int i = 0; i < annotations.size() && !found; i++) {
+            Annotation annotation = annotations.get(i);
+            if (annotation.isParameter() && annotation.name().equals(name)) {
+                parameter = annotation.asParameter();
+                found = true;
+            }
+        }
+        return parameter;
     }
 
     @Override

@@ -9,6 +9,7 @@ public interface AnnotatedObject {
 
     List<Annotation> getAnnotations();
 
+    Parameter getParameter(String name);
     List<Parameter> getParameters();
     List<Parameter> getParameters(String name);
 

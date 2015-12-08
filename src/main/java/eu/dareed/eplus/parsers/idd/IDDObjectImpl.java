@@ -70,6 +70,11 @@ class IDDObjectImpl implements IDDObject {
     }
 
     @Override
+    public Parameter getParameter(String name) {
+        return annotations.getParameter(name);
+    }
+
+    @Override
     public boolean isSet(String annotationName) {
         return annotations.isSet(annotationName);
     }
