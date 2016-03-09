@@ -27,7 +27,7 @@ public class IDFImpl implements IDF {
     public List<IDFObject> findInstances(String typeName) {
         List<IDFObject> foundObjects = new ArrayList<>();
         for (IDFObject o : objects) {
-            if (o.getType().equals(typeName)) {
+            if (o.getType().equalsIgnoreCase(typeName)) {
                 foundObjects.add(o);
             }
         }

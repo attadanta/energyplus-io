@@ -19,8 +19,8 @@ import java.util.List;
 
 /**
  * <p>Usage:
- * <p/>
  * <pre>eso2csv -e environment-name -i interval [-v var-code...] output.eso...</pre>
+ * <p/>
  *
  * @author <a href="mailto:kiril.tonev@kit.edu">Kiril Tonev</a>
  */
