@@ -8,12 +8,21 @@ import java.util.List;
  * @author <a href="mailto:kiril.tonev@kit.edu">Kiril Tonev</a>
  */
 public class EnergyPlusArguments {
+    public static final String DEFAULT_OUTPUT_PREFIX = "eplus";
+
     protected final File outputDirectory;
     protected final File dataDictionary;
     protected final File weatherFile;
     protected final File inputFile;
 
     protected String outputPrefix;
+
+    public EnergyPlusArguments(File outputDirectory, File dataDictionary, File weatherFile, File inputFile) {
+        this.outputDirectory = outputDirectory;
+        this.dataDictionary = dataDictionary;
+        this.weatherFile = weatherFile;
+        this.inputFile = inputFile;
+    }
 
     public EnergyPlusArguments(String outputDirectory, String dataDictionary, String weatherFile, String inputFile) {
         this.outputDirectory = new File(outputDirectory);
@@ -75,7 +84,7 @@ public class EnergyPlusArguments {
 
     public List<String> getArgumentsList() {
         return Arrays.asList("-d", outputDirectory.getPath(), "-i", dataDictionary.getPath(),
-                "-w", weatherFile.getPath(), "-p", outputPrefix == null ? "eplus" : outputPrefix,
+                "-w", weatherFile.getPath(), "-p", outputPrefix == null ? DEFAULT_OUTPUT_PREFIX : outputPrefix,
                 inputFile.getPath());
     }
 }
