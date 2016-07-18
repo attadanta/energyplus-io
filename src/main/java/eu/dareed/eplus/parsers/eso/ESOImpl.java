@@ -5,10 +5,7 @@ import eu.dareed.eplus.model.eso.DataPoints;
 import eu.dareed.eplus.model.eso.ESO;
 import eu.dareed.eplus.model.eso.ESOItem;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author <a href="mailto:kiril.tonev@kit.edu">Kiril Tonev</a>
@@ -20,6 +17,9 @@ class ESOImpl implements ESO {
     protected final List<DataPoints> dataPointsList;
     protected Item versionStatement;
 
+    protected Map<String, ESOItem> environmentsMap;
+    protected Map<String, List<DataPoints>> dataPointsMap;
+
 
     public ESOImpl(Item versionStatement) {
         this.versionStatement = versionStatement;
@@ -28,6 +28,7 @@ class ESOImpl implements ESO {
         this.dataDictionary = new ArrayList<>();
         this.dataPointsList = new ArrayList<>();
     }
+
 
     @Override
     public Item getVersionStatement() {
@@ -50,6 +51,33 @@ class ESOImpl implements ESO {
     @Override
     public List<ESOItem> getData() {
         return Collections.unmodifiableList(data);
+    }
+
+    @Override
+    public Map<String, ESOItem> getEnvironments() {
+        return Collections.unmodifiableMap(environmentsMap);
+    }
+
+    @Override
+    public List<String> enumerateEnvironments() {
+        return new ArrayList<>(environmentsMap.keySet());
+    }
+
+    @Override
+    public List<DataPoints> getDataPoints(String environmentTitle) {
+        if (!environmentsMap.containsKey(environmentTitle)) {
+            throw new IllegalArgumentException("No environment with title `" + environmentTitle + "' reported in the output.");
+        }
+
+        return Collections.unmodifiableList(dataPointsMap.get(environmentTitle));
+    }
+
+    protected void setEnvironmentsMap(Map<String, ESOItem> environmentsMap) {
+        this.environmentsMap = environmentsMap;
+    }
+
+    protected void setDataPointsMap(Map<String, List<DataPoints>> dataPointsMap) {
+        this.dataPointsMap = dataPointsMap;
     }
 
     protected boolean addDataDictionaryItem(Item item) {

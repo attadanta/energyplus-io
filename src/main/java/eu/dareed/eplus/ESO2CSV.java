@@ -126,12 +126,9 @@ public class ESO2CSV {
     protected Iterable<DataPoints> selectDataPoints(ESO eso) {
         List<DataPoints> result = new ArrayList<>();
 
-        for (DataPoints dataPoints : eso.getDataPoints()) {
+        for (DataPoints dataPoints : eso.getDataPoints(environment)) {
             if (dataPoints.getItem().getField(0).integerValue() == interval) {
-                List<ESOItem> environment = dataPoints.getEnvironment();
-                if (environment.get(environment.size() - 1).getField(1).stringValue().equalsIgnoreCase(this.environment)) {
-                    result.add(dataPoints);
-                }
+                result.add(dataPoints);
             }
         }
 
