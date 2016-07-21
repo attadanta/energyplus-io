@@ -22,13 +22,12 @@ public class EnergyPlusArguments {
         this.dataDictionary = dataDictionary;
         this.weatherFile = weatherFile;
         this.inputFile = inputFile;
+
+        this.outputPrefix = DEFAULT_OUTPUT_PREFIX;
     }
 
     public EnergyPlusArguments(String outputDirectory, String dataDictionary, String weatherFile, String inputFile) {
-        this.outputDirectory = new File(outputDirectory);
-        this.dataDictionary = new File(dataDictionary);
-        this.weatherFile = new File(weatherFile);
-        this.inputFile = new File(inputFile);
+        this(new File(outputDirectory), new File(dataDictionary), new File(weatherFile), new File(inputFile));
     }
 
     public String getOutputPrefix() {
@@ -84,7 +83,7 @@ public class EnergyPlusArguments {
 
     public List<String> getArgumentsList() {
         return Arrays.asList("-d", outputDirectory.getPath(), "-i", dataDictionary.getPath(),
-                "-w", weatherFile.getPath(), "-p", outputPrefix == null ? DEFAULT_OUTPUT_PREFIX : outputPrefix,
+                "-w", weatherFile.getPath(), "-p", outputPrefix,
                 inputFile.getPath());
     }
 }
