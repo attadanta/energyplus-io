@@ -30,7 +30,7 @@ public class OutputsStack {
             queue.offer(root);
         }
         while (!queue.isEmpty()) {
-            Outputs outputs = queue.pollLast();
+            Outputs outputs = queue.poll();
             List<Outputs> children = outputs.getChildren();
             if (children.isEmpty()) {
                 result.add(outputs);

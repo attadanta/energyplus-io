@@ -64,4 +64,25 @@ public class ESOIndexingTest {
 
         Assert.assertEquals(8761, residential.size());
     }
+
+    @Test
+    public void testDataPointsSequence() {
+        List<DataPoints> residential = eso.getDataPoints("RESIDENTIAL");
+
+        DataPoints first = residential.get(0);
+        Assert.assertEquals(1, first.getItem().getField(1).integerValue());
+        Assert.assertEquals(1, first.getItem().getField(5).integerValue());
+
+        DataPoints second = residential.get(1);
+        Assert.assertEquals(1, second.getItem().getField(1).integerValue());
+        Assert.assertEquals(2, second.getItem().getField(5).integerValue());
+
+        DataPoints third = residential.get(2);
+        Assert.assertEquals(1, third.getItem().getField(1).integerValue());
+        Assert.assertEquals(3, third.getItem().getField(5).integerValue());
+
+        DataPoints twentyFifth = residential.get(24);
+        Assert.assertEquals(2, twentyFifth.getItem().getField(1).integerValue());
+        Assert.assertEquals(1, twentyFifth.getItem().getField(5).integerValue());
+    }
 }
