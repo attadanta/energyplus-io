@@ -21,17 +21,14 @@ public abstract class FileParser<I extends Token, O> implements eu.dareed.eplus.
     }
 
     protected I parse(InputStream inputStream) throws IOException {
-        BufferedReader stream = new BufferedReader(new InputStreamReader(inputStream));
-
         Parser parser = new Parser(rootToken);
-        int lineNumber = 0;
-        for (String line = stream.readLine(); line != null; ) {
-            lineNumber++;
-            line = line + "\n";
-            parser.parseLine(line, lineNumber);
-            line = stream.readLine();
+        try (InputStreamReader streamReader = new InputStreamReader(inputStream);
+             BufferedReader in = new BufferedReader(streamReader)) {
+            int lineNumber = 1;
+            for (String line = in.readLine(); line != null; line = in.readLine(), lineNumber++) {
+                parser.parseLine(line + "\n", lineNumber);
+            }
         }
-
         return rootToken;
     }
 
