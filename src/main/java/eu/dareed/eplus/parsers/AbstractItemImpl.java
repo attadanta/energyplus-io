@@ -31,6 +31,25 @@ public class AbstractItemImpl implements Item {
         return Collections.unmodifiableList(fields);
     }
 
+
+    @Override
+    public Field firstField() {
+        if (fields.isEmpty()) {
+            throw new NullPointerException("No fields in item.");
+        }
+
+        return fields.get(0);
+    }
+
+    @Override
+    public Field lastField() {
+        if (fields.isEmpty()) {
+            throw new NullPointerException("No fields in item.");
+        }
+
+        return fields.get(fields.size() - 1);
+    }
+
     public boolean addField(Field field) {
         return fields.add(field);
     }
