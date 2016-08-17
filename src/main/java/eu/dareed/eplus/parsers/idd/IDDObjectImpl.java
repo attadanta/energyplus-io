@@ -1,5 +1,6 @@
 package eu.dareed.eplus.parsers.idd;
 
+import eu.dareed.eplus.model.Field;
 import eu.dareed.eplus.model.idd.Annotation;
 import eu.dareed.eplus.model.idd.IDDField;
 import eu.dareed.eplus.model.idd.IDDObject;
@@ -14,14 +15,13 @@ import java.util.List;
 /**
  * @author <a href="mailto:kiril.tonev@kit.edu">Kiril Tonev</a>
  */
-class IDDObjectImpl implements IDDObject {
+final class IDDObjectImpl implements IDDObject {
 
-    protected final String type;
+    private final String type;
+    private final List<IDDField> fields;
+    private final AnnotationsContainer annotations;
 
-    protected final List<IDDField> fields;
-    protected final AnnotationsContainer annotations;
-
-    public IDDObjectImpl(String type) {
+    IDDObjectImpl(String type) {
         this.type = type;
 
         this.fields = new ArrayList<>();
@@ -42,6 +42,24 @@ class IDDObjectImpl implements IDDObject {
         }
 
         return StringUtils.join(memo, " ");
+    }
+
+    @Override
+    public Field firstField() {
+        if (fields.isEmpty()) {
+            throw new NullPointerException("No fields in item.");
+        }
+
+        return fields.get(0);
+    }
+
+    @Override
+    public Field lastField() {
+        if (fields.isEmpty()) {
+            throw new NullPointerException("No fields in item.");
+        }
+
+        return fields.get(fields.size() - 1);
     }
 
     @Override
@@ -79,11 +97,11 @@ class IDDObjectImpl implements IDDObject {
         return annotations.isSet(annotationName);
     }
 
-    protected boolean addAnnotation(Annotation annotation) {
+    boolean addAnnotation(Annotation annotation) {
         return annotations.addAnnotation(annotation);
     }
 
-    protected boolean addField(IDDField field) {
+    boolean addField(IDDField field) {
         return this.fields.add(field);
     }
 }

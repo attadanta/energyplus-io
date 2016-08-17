@@ -1,5 +1,6 @@
 package eu.dareed.eplus.parsers;
 
+import eu.dareed.eplus.model.Field;
 import eu.dareed.eplus.model.idf.IDFField;
 import eu.dareed.eplus.model.idf.IDFObject;
 
@@ -11,14 +12,33 @@ import java.util.List;
  * @author <a href="mailto:kiril.tonev@kit.edu">Kiril Tonev</a>
  */
 public class AbstractIDFObjectImplementation implements IDFObject {
-    protected final int lineNumber;
     protected final String type;
     protected final List<IDFField> fields;
+
+    private final int lineNumber;
 
     public AbstractIDFObjectImplementation(int lineNumber, String type) {
         this.lineNumber = lineNumber;
         this.type = type;
         this.fields = new ArrayList<>();
+    }
+
+    @Override
+    public Field firstField() {
+        if (fields.isEmpty()) {
+            throw new NullPointerException("No fields in item.");
+        }
+
+        return fields.get(0);
+    }
+
+    @Override
+    public Field lastField() {
+        if (fields.isEmpty()) {
+            throw new NullPointerException("No fields in item.");
+        }
+
+        return fields.get(fields.size() - 1);
     }
 
     @Override
