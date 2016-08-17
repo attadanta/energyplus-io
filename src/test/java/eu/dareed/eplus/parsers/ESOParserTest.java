@@ -1,5 +1,6 @@
 package eu.dareed.eplus.parsers;
 
+import eu.dareed.eplus.model.Field;
 import eu.dareed.eplus.model.Item;
 import eu.dareed.eplus.model.eso.ESO;
 import eu.dareed.eplus.model.eso.ESOItem;
@@ -32,6 +33,7 @@ public class ESOParserTest {
                 "3,3,Cumulative Day of Simulation[],Month[],Day of Month[],DST Indicator[1=yes 0=no],DayType  ! When Daily Report Variables Requested",
                 "4,2,Cumulative Days of Simulation[],Month[]  ! When Monthly Report Variables Requested",
                 "5,1,Cumulative Days of Simulation[] ! When Run Period Report Variables Requested",
+                "496,11,ZONE001,Zone Thermal Comfort ASHRAE 55 Simple Model Summer or Winter Clothes Not Comfortable Time [hr] !RunPeriod [Value,Min,Month,Day,Hour,Minute,Max,Month,Day,Hour,Minute]",
                 "End of Data Dictionary",
                 "1,CHICAGO_IL_USA HEATING 99% CONDITIONS,  37.42,  -5.90,   1.00,  31.00",
                 "2,1, 1,21, 0, 1, 0.00,60.00,WinterDesignDay",
@@ -48,18 +50,30 @@ public class ESOParserTest {
                 " Number of Records Written=        2352");
 
         String fileContents = StringUtils.join(lines, "\n");
-        this.in = IOUtils.toInputStream(fileContents);
+        in = IOUtils.toInputStream(fileContents);
     }
 
     @Test
     public void testParseData() throws IOException {
         ESO eso = new ESOParser().parseFile(in);
         Assert.assertEquals("Program Version", eso.getVersionStatement().getField(0).stringValue());
-        Assert.assertEquals(5, eso.getDataDictionary().size());
+        Assert.assertEquals(6, eso.getDataDictionary().size());
         Assert.assertEquals(11, eso.getData().size());
 
         Assert.assertEquals(1, eso.getData().get(0).getFields().get(0).integerValue());
         Assert.assertEquals(2, eso.getData().get(1).getFields().get(0).integerValue());
+    }
+
+    @Test
+    public void testFieldsInDataDictionary() throws IOException {
+        ESO eso = new ESOParser().parseFile(in);
+        List<Item> dataDictionary = eso.getDataDictionary();
+
+        Item item = dataDictionary.get(dataDictionary.size() - 1);
+
+        List<? extends Field> fields = item.getFields();
+        Assert.assertEquals(4, fields.size());
+        Assert.assertEquals("Zone Thermal Comfort ASHRAE 55 Simple Model Summer or Winter Clothes Not Comfortable Time [hr] !RunPeriod [Value,Min,Month,Day,Hour,Minute,Max,Month,Day,Hour,Minute]", fields.get(fields.size() - 1).stringValue());
     }
 
     @Test
