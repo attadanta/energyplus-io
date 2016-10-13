@@ -81,6 +81,8 @@ public class ESOParser extends FileParser<ESO, eu.dareed.eplus.model.eso.ESO> {
 
             String environmentTitle = topEnvironment.getField(1).stringValue();
             List<DataPoints> dataPointsList = dataPointsMap.get(environmentTitle);
+
+            assert dataPointsList != null : String.format("No data points list assigned for environment `%s'", environmentTitle);
             dataPointsList.add(dataPoints);
         }
 
