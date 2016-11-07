@@ -1,5 +1,7 @@
 package eu.dareed.eplus.runner;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,11 +27,18 @@ public class EnergyPlusRunner {
         return energyPlusPath.exists() && energyPlusPath.canExecute();
     }
 
+    public String commandLine() {
+        return StringUtils.join(commandLineArguments(), " ");
+    }
+
     public Process start() throws IOException {
+        return new ProcessBuilder(commandLineArguments()).directory(arguments.getOutputDirectory()).start();
+    }
+
+    private List<String> commandLineArguments() {
         List<String> command = new ArrayList<>();
         command.add(energyPlusPath.getPath());
         command.addAll(arguments.getArgumentsList());
-
-        return new ProcessBuilder(command).start();
+        return command;
     }
 }
