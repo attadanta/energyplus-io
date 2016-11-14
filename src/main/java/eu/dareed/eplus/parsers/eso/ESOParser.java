@@ -51,7 +51,7 @@ public class ESOParser extends FileParser<ESO, eu.dareed.eplus.model.eso.ESO> {
                 String environmentTitle = item.getField(1).stringValue();
 
                 environmentsMap.put(environmentTitle, item);
-                dataPointsMap.put(environmentTitle, new ArrayList<DataPoints>());
+                dataPointsMap.put(environmentTitle, new ArrayList<>());
             }
         }
 
