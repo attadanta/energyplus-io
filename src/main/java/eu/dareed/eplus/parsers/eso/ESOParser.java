@@ -77,7 +77,8 @@ public class ESOParser extends FileParser<ESO, eu.dareed.eplus.model.eso.ESO> {
             assert environment.size() > 0 : "Stray data points detected.";
 
             ESOItem topEnvironment = environment.get(environment.size() - 1);
-            assert topEnvironment.getField(0).integerValue() == 1 : "Top environment item should always have a report code == 1.";
+            assert topEnvironment.getField(0).integerValue() == 1
+                    : "Top environment item should always have a report code == 1. Got " + topEnvironment.toString() + " instead.";
 
             String environmentTitle = topEnvironment.getField(1).stringValue();
             List<DataPoints> dataPointsList = dataPointsMap.get(environmentTitle);

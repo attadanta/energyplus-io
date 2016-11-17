@@ -3,6 +3,7 @@ package eu.dareed.eplus.parsers;
 import eu.dareed.eplus.model.Field;
 import eu.dareed.eplus.model.Item;
 import eu.dareed.eplus.model.eso.ESOItem;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -48,5 +49,10 @@ public class ESOItemImpl extends AbstractItemImpl implements ESOItem {
 
     public void setDataDictionaryItem(Item dataDictionaryItem) {
         this.dataDictionaryItem = dataDictionaryItem;
+    }
+
+    @Override
+    public String toString() {
+        return "ESOItem{ " + StringUtils.join(fields, ", ") + " }";
     }
 }
