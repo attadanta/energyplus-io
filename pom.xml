@@ -76,4 +76,13 @@
         </dependency>
     </dependencies>
 
+    <developers>
+        <developer>
+            <id>ktonev</id>
+            <email>kiril.tonev@kit.edu</email>
+            <name>Kiril Tonev</name>
+            <organization>KIT</organization>
+            <organizationUrl>https://www.imi.kit.edu</organizationUrl>
+        </developer>
+    </developers>
 </project>

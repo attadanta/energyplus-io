@@ -33,7 +33,7 @@ public class IDDParserTest {
 
     @Test
     public void testReadFile() throws IOException {
-        InputStream resource = IDDParserTest.class.getResourceAsStream("/location.idd");
+        InputStream resource = IDDParserTest.class.getResourceAsStream("/fixtures/location.idd");
         IDD idd = new IDDParser().parse(resource);
 
         Assert.assertEquals(1, idd.getChildren().size());
@@ -44,7 +44,7 @@ public class IDDParserTest {
 
     @Test
     public void testIDDInterface() throws IOException {
-        InputStream resource = IDDParserTest.class.getResourceAsStream("/location.idd");
+        InputStream resource = IDDParserTest.class.getResourceAsStream("/fixtures/location.idd");
         eu.dareed.eplus.model.idd.IDD idd = new IDDParser().parseFile(resource);
 
         Assert.assertEquals(1, idd.getAllObjects().size());
@@ -61,7 +61,7 @@ public class IDDParserTest {
 
     @Test
     public void testGroups() throws IOException {
-        InputStream resource = IDDParserTest.class.getResourceAsStream("/groups.idd");
+        InputStream resource = IDDParserTest.class.getResourceAsStream("/fixtures/groups.idd");
         eu.dareed.eplus.model.idd.IDD idd = new IDDParser().parseFile(resource);
 
         Assert.assertFalse(idd.getGroupNames().isEmpty());

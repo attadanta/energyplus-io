@@ -14,7 +14,7 @@ public class IDFWriterTest {
     @Test
     public void testSingleValue() throws IOException {
         IDFWriter idfWriter = new IDFWriter();
-        ObjectBuilder building = idfWriter.buildObject("Building");
+        idfWriter.buildObject("Building");
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         PrintWriter writer = new PrintWriter(out);
         idfWriter.write(writer);

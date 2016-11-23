@@ -11,7 +11,6 @@ import java.util.List;
  * @author <a href="mailto:kiril.tonev@kit.edu">Kiril Tonev</a>
  */
 public class ESO extends Token {
-
     protected final List<Line> dataDictionary;
     protected final List<Line> data;
 
@@ -72,7 +71,7 @@ public class ESO extends Token {
         return versionStatement;
     }
 
-    protected void processControlStatement(Line line) {
+    private void processControlStatement(Line line) {
         String statement = line.getChildren().get(0).getContents();
 
         if (statement.equalsIgnoreCase("End of Data Dictionary")) {

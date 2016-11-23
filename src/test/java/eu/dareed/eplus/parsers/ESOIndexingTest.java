@@ -16,12 +16,11 @@ import java.util.*;
  * @author <a href="mailto:kiril.tonev@kit.edu">Kiril Tonev</a>
  */
 public class ESOIndexingTest {
-
-    public static ESO eso;
+    private static ESO eso;
 
     @BeforeClass
     public static void setup() throws IOException {
-        InputStream inputStream = ESOIndexingTest.class.getResourceAsStream("/environments.eso");
+        InputStream inputStream = ESOIndexingTest.class.getResourceAsStream("/fixtures/eso_indexing.eso");
         eso = new ESOParser().parseFile(inputStream);
     }
 

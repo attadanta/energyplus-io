@@ -5,14 +5,18 @@ package eu.dareed.eplus.parsers;
  */
 public class Parser {
     protected final Stack stack;
-    protected final Token root;
 
     public Parser(Token root) {
         stack = new StackImpl();
         stack.push(root);
-        this.root = root;
     }
 
+    /**
+     * Passes the characters in the line through the tokens on the stack.
+     *
+     * @param line       a newline-terminated string.
+     * @param lineNumber the line number currently being processed.
+     */
     public void parseLine(String line, int lineNumber) {
         for (int column = 0; column < line.length(); column++) {
             Token token = stack.peek();

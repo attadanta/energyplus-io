@@ -20,7 +20,7 @@ public class IDFValidationTest {
 
     @BeforeClass
     public static void setup() throws IOException {
-        InputStream resource = ObjectValidationTest.class.getResourceAsStream("/Energy+.idd");
+        InputStream resource = ObjectValidationTest.class.getResourceAsStream("/fixtures/data_dictionary.idd");
         IDFValidationTest.dataDictionary = new IDDParser().parseFile(resource);
 
         IDFWriter writer = new IDFWriter();

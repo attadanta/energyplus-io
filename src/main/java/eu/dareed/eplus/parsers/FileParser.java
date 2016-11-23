@@ -26,7 +26,7 @@ public abstract class FileParser<I extends Token, O> implements eu.dareed.eplus.
              BufferedReader in = new BufferedReader(streamReader)) {
             int lineNumber = 1;
             for (String line = in.readLine(); line != null; line = in.readLine(), lineNumber++) {
-                parser.parseLine(line + "\n", lineNumber);
+                parser.parseLine(line + '\n', lineNumber);
             }
         }
         return rootToken;

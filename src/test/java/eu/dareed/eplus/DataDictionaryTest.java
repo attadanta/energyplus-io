@@ -18,7 +18,7 @@ public class DataDictionaryTest {
 
     @BeforeClass
     public static void setup() throws IOException {
-        InputStream resource = DataDictionaryTest.class.getResourceAsStream("/Energy+.idd");
+        InputStream resource = DataDictionaryTest.class.getResourceAsStream("/fixtures/data_dictionary.idd");
         idd = new IDDParser().parseFile(resource);
     }
 
@@ -31,7 +31,6 @@ public class DataDictionaryTest {
     public void testIgnoreComment() {
         IDDObject iddObject = idd.findObject("GroundHeatTransfer:Basement:EquivSlab");
         Assert.assertNotNull(iddObject);
-        System.out.println(iddObject.getMemo());
         Assert.assertEquals("N1", iddObject.getFields().get(0).getName());
     }
 }

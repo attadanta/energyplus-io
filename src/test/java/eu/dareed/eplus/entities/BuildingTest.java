@@ -14,7 +14,7 @@ import java.util.List;
 public class BuildingTest {
     @Test
     public void testBuilding() throws IOException {
-        IDF idf = new IDFParser().parseFile(BuildingTest.class.getResourceAsStream("/building.idf"));
+        IDF idf = new IDFParser().parseFile(BuildingTest.class.getResourceAsStream("/fixtures/building.idf"));
         Building building = new Building(idf);
 
         List<Zone> zones = building.getZones();

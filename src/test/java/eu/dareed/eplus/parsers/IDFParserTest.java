@@ -51,7 +51,7 @@ public class IDFParserTest {
 
     @Test
     public void parseFile() throws IOException {
-        InputStream resource = IDDParserTest.class.getResourceAsStream("/forum.idf");
+        InputStream resource = IDDParserTest.class.getResourceAsStream("/fixtures/idd_parser.idf");
         eu.dareed.eplus.model.idf.IDF idf = new IDFParser().parseFile(resource);
 
         List<eu.dareed.eplus.model.idf.IDFObject> actualItems = idf.getObjects();
