@@ -85,4 +85,13 @@
             <organizationUrl>https://www.imi.kit.edu</organizationUrl>
         </developer>
     </developers>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+            <distribution>repo</distribution>
+            <comments>A short and simple permissive license</comments>
+        </license>
+    </licenses>
 </project>
