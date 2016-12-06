@@ -44,4 +44,11 @@ public class AbstractFieldImplementation implements Field {
     public String stringValue() {
         return value.trim();
     }
+
+    @Override
+    public String toString() {
+        return "Field{" +
+                "value='" + value + '\'' +
+                '}';
+    }
 }

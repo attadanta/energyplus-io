@@ -3,10 +3,7 @@ package eu.dareed.eplus.parsers.eso;
 import eu.dareed.eplus.model.Item;
 import eu.dareed.eplus.model.eso.DataPoints;
 import eu.dareed.eplus.model.eso.ESOItem;
-import eu.dareed.eplus.parsers.AbstractItemImpl;
-import eu.dareed.eplus.parsers.ESOItemImpl;
-import eu.dareed.eplus.parsers.FileParser;
-import eu.dareed.eplus.parsers.Token;
+import eu.dareed.eplus.parsers.*;
 import eu.dareed.eplus.parsers.eso.tokens.ESO;
 import eu.dareed.eplus.parsers.eso.tokens.Line;
 import eu.dareed.eplus.parsers.eso.tokens.Outputs;
@@ -74,16 +71,22 @@ public class ESOParser extends FileParser<ESO, eu.dareed.eplus.model.eso.ESO> {
             dataPoints.setEnvironment(environment);
             eso.addDataPoints(dataPoints);
 
-            assert environment.size() > 0 : "Stray data points detected.";
+            if (environment.isEmpty()) {
+                throw new ParseException("Stray data points detected");
+            }
 
             ESOItem topEnvironment = environment.get(environment.size() - 1);
-            assert topEnvironment.getField(0).integerValue() == 1
-                    : "Top environment item should always have a report code == 1. Got " + topEnvironment.toString() + " instead.";
+
+            if (topEnvironment.getField(0).integerValue() != 1) {
+                throw new ParseException(String.format("Top environment item should always have a report code == 1. Got %s instead", topEnvironment));
+            }
 
             String environmentTitle = topEnvironment.getField(1).stringValue();
             List<DataPoints> dataPointsList = dataPointsMap.get(environmentTitle);
 
-            assert dataPointsList != null : String.format("No data points list assigned for environment `%s'", environmentTitle);
+            if (dataPointsList == null) {
+                throw new RuntimeException(String.format("No data points list assigned for environment `%s'", environmentTitle), new NullPointerException());
+            }
             dataPointsList.add(dataPoints);
         }
 
@@ -93,7 +96,7 @@ public class ESOParser extends FileParser<ESO, eu.dareed.eplus.model.eso.ESO> {
         return eso;
     }
 
-    protected Item processVersionStatement(Token versionStatement) {
+    private Item processVersionStatement(Token versionStatement) {
         AbstractItemImpl item = new AbstractItemImpl();
         item.addAllFields(asFields(versionStatement.getChildren()));
         return item;
