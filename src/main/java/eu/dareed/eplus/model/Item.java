@@ -9,7 +9,10 @@ import java.util.List;
  */
 public interface Item {
     Field firstField();
+
     Field lastField();
+
     Field getField(int index);
+
     List<? extends Field> getFields();
 }
