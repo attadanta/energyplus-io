@@ -8,6 +8,10 @@
     <artifactId>eplus</artifactId>
     <version>0.10.0-SNAPSHOT</version>
 
+    <name>${project.groupId}:${project.artifactId}</name>
+    <description>Parsers for the EnergyPlus file formats</description>
+    <url>https://github.com/attadanta/energyplus-io</url>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
@@ -76,16 +80,6 @@
         </dependency>
     </dependencies>
 
-    <developers>
-        <developer>
-            <id>ktonev</id>
-            <email>kiril.tonev@kit.edu</email>
-            <name>Kiril Tonev</name>
-            <organization>KIT</organization>
-            <organizationUrl>https://www.imi.kit.edu</organizationUrl>
-        </developer>
-    </developers>
-
     <licenses>
         <license>
             <name>MIT License</name>
@@ -94,4 +88,20 @@
             <comments>A short and simple permissive license</comments>
         </license>
     </licenses>
+
+    <developers>
+        <developer>
+            <id>ktonev</id>
+            <name>Kiril Tonev</name>
+            <email>kiril.tonev@gmail.com</email>
+            <organization>KIT</organization>
+            <organizationUrl>https://kit.edu</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/attadanta/energyplus-io.git</connection>
+        <developerConnection>scm:git:ssh://github.com:attadanta/energyplus-io.git</developerConnection>
+        <url>https://github.com/attadanta/energyplus-io/tree/master</url>
+    </scm>
 </project>
